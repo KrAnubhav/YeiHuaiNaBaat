@@ -1,3 +1,5 @@
+https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/795521dac0298c5a270b6eddcd91120a/c34f9781-d691-44f4-b089-2afab319ebd1/index.html?utm_source=perplexity
+
 Thanks for the detailed context! Here's a professional set of structured prompts designed to prepare you topic-wise for the IIT Patna M.Tech (AI) Self-Sponsored Interview, covering GATE CSE, Data Analytics, and your work experience. These prompts can be directly used with GPT for most expected & frequently asked questions (no answers).
 
 
