@@ -1,0 +1,1290 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: transparent; }
+.wrap { padding: 1rem 0; }
+.hdr h1 { font-size: 19px; font-weight: 600; color: var(--color-text-primary, #111); margin-bottom: 3px; }
+.hdr p { font-size: 12px; color: var(--color-text-secondary, #666); margin-bottom: 10px; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.stat { background: var(--color-background-secondary, #f5f5f5); border: 0.5px solid var(--color-border-tertiary, #ddd); border-radius: 8px; padding: 4px 12px; font-size: 12px; color: var(--color-text-secondary, #555); }
+.stat b { color: var(--color-text-primary, #111); font-weight: 600; }
+.tip { background: #EFF6FF; border: 0.5px solid #BFDBFE; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #1E40AF; margin-bottom: 14px; line-height: 1.7; }
+.tip b { color: #1E3A8A; }
+.tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.tab { padding: 5px 13px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 0.5px solid var(--color-border-secondary, #ccc); background: var(--color-background-primary, #fff); color: var(--color-text-secondary, #555); transition: all 0.15s; }
+.tab.active { background: #EFF6FF; color: #1D4ED8; border-color: #93C5FD; font-weight: 600; }
+.sec { display: none; }
+.sec.active { display: block; }
+.sec-hdr { font-size: 14px; font-weight: 600; color: var(--color-text-primary, #111); margin-bottom: 2px; }
+.sec-sub { font-size: 11px; color: var(--color-text-secondary, #666); margin-bottom: 12px; }
+.qcard { border: 0.5px solid var(--color-border-tertiary, #ddd); border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: var(--color-background-primary, #fff); }
+.qhead { display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px; cursor: pointer; }
+.qleft { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 40px; }
+.qnum { font-size: 11px; color: var(--color-text-tertiary, #999); font-weight: 700; }
+.lvbadge { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+.lv1 { background: #D1FAE5; color: #065F46; }
+.lv2 { background: #FEF3C7; color: #92400E; }
+.lvmix { background: #FCE7F3; color: #9D174D; }
+.qright { flex: 1; }
+.qtitle { font-size: 13px; color: var(--color-text-primary, #111); line-height: 1.5; font-weight: 500; }
+.qhint { font-size: 11px; color: var(--color-text-tertiary, #999); margin-top: 3px; font-style: italic; }
+.qarrow { font-size: 12px; color: var(--color-text-tertiary, #999); padding-top: 2px; transition: transform 0.2s; flex-shrink: 0; }
+.qarrow.open { transform: rotate(180deg); }
+.qbody { display: none; border-top: 0.5px solid var(--color-border-tertiary, #eee); padding: 13px; background: var(--color-background-secondary, #fafafa); }
+.qbody.open { display: block; }
+.task-box { background: #F0F9FF; border: 0.5px solid #BAE6FD; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+.task-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #0369A1; margin-bottom: 5px; }
+.task-item { font-size: 12px; color: #0C4A6E; line-height: 1.7; display: flex; gap: 6px; margin-bottom: 2px; }
+.code-block { background: #1E1E2E; border-radius: 6px; padding: 12px 14px; margin: 8px 0; overflow-x: auto; }
+.code-block pre { font-family: 'Courier New', Courier, monospace; font-size: 12px; color: #CDD6F4; line-height: 1.7; white-space: pre; }
+.kw { color: #CBA6F7; }
+.str { color: #A6E3A1; }
+.cm { color: #6C7086; font-style: italic; }
+.cls { color: #89DCEB; }
+.fn { color: #89B4FA; }
+.num { color: #FAB387; }
+.ann { color: #F38BA8; }
+.concept-box { background: var(--color-background-primary, #fff); border: 0.5px solid var(--color-border-tertiary, #ddd); border-radius: 6px; padding: 10px 12px; margin-top: 8px; }
+.concept-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--color-text-tertiary, #999); margin-bottom: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.chip { font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 500; }
+.c-blue { background: #DBEAFE; color: #1E40AF; }
+.c-red { background: #FEE2E2; color: #991B1B; }
+.c-green { background: #D1FAE5; color: #065F46; }
+.c-orange { background: #FEF3C7; color: #92400E; }
+.c-purple { background: #EDE9FE; color: #5B21B6; }
+.c-pink { background: #FCE7F3; color: #9D174D; }
+.divider { height: 0.5px; background: var(--color-border-tertiary, #eee); margin: 10px 0; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.btns button { font-size: 12px; padding: 6px 12px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary, #ccc); background: var(--color-background-primary, #fff); color: var(--color-text-secondary, #555); cursor: pointer; }
+.btns button:hover { background: var(--color-background-secondary, #f5f5f5); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <h1>Salesforce TSE — Java Code Interview Questions</h1>
+    <p>40 Questions · L1 + L2 Mix · Explain → Find Bugs → Fix → Production-Ready Code</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>40</b> Questions</div>
+    <div class="stat"><b>8</b> Topics</div>
+    <div class="stat">🟢 <b>L1</b> = Explain & Find Bug</div>
+    <div class="stat">🟡 <b>L2</b> = Fix & Optimize</div>
+  </div>
+  <div class="tip">
+    💡 <b>How to answer every question:</b><br>
+    <b>Step 1 — Explain:</b> What does this code do in plain English?<br>
+    <b>Step 2 — Find Issues:</b> What are ALL the bugs, problems, or risks?<br>
+    <b>Step 3 — Fix It:</b> Write the corrected, production-ready version with explanation.
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('exception',this)">⚠️ Exception Handling</div>
+    <div class="tab" onclick="showTab('nullpointer',this)">🔴 Null & NPE</div>
+    <div class="tab" onclick="showTab('resources',this)">📁 Resource Mgmt</div>
+    <div class="tab" onclick="showTab('loops',this)">🔁 Loops & Logic</div>
+    <div class="tab" onclick="showTab('strings',this)">🔤 Strings</div>
+    <div class="tab" onclick="showTab('collections',this)">📦 Collections</div>
+    <div class="tab" onclick="showTab('concurrency',this)">⚡ Concurrency</div>
+    <div class="tab" onclick="showTab('design',this)">🏗️ Design & OOP</div>
+  </div>
+
+  <!-- EXCEPTION HANDLING -->
+  <div class="sec active" id="exception">
+    <p class="sec-hdr">⚠️ Exception Handling</p>
+    <p class="sec-sub">Most tested area in Salesforce TSE — understand checked vs unchecked, proper catch blocks, and never swallow exceptions</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q1</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">Explain this code, find all issues, and write the production-ready version.</div><div class="qhint">📍 File handling · Missing exception handling · Resource leak</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">processUserSignup</span>(<span class="cls">User</span> user) {
+    <span class="cls">File</span> report = pdfGenerator.<span class="fn">generateReport</span>(user);
+    System.out.<span class="fn">println</span>(<span class="str">"File not found"</span>);
+    report.<span class="fn">delete</span>();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain what this code does line by line</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Identify ALL issues and bugs</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the complete production-ready version</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">No try-catch</span><span class="chip c-orange">Hardcoded wrong message</span><span class="chip c-blue">No null check on report</span><span class="chip c-purple">No logging</span><span class="chip c-green">Resource cleanup</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q2</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">What is wrong with this exception handling? What will the caller never know?</div><div class="qhint">📍 Swallowed exception · Silent failure</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">getUserEmail</span>(<span class="kw">int</span> userId) {
+    <span class="kw">try</span> {
+        <span class="kw">return</span> database.<span class="fn">findUser</span>(userId).getEmail();
+    } <span class="kw">catch</span> (<span class="cls">Exception</span> e) {
+        <span class="cm">// do nothing</span>
+    }
+    <span class="kw">return null</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What does this code do and what is the critical flaw?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Why is catching Exception (root) dangerous here?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with proper exception handling and logging</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Swallowed exception</span><span class="chip c-orange">Catching root Exception</span><span class="chip c-blue">Silent null return</span><span class="chip c-purple">Logging requirement</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q3</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code handles exceptions but still has 3 serious production problems. Find and fix all of them.</div><div class="qhint">📍 Finally block · Exception masking · Return in finally</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">Connection</span> <span class="fn">getConnection</span>() {
+    <span class="cls">Connection</span> conn = <span class="kw">null</span>;
+    <span class="kw">try</span> {
+        conn = <span class="cls">DriverManager</span>.<span class="fn">getConnection</span>(url);
+        <span class="kw">return</span> conn;
+    } <span class="kw">catch</span> (<span class="cls">SQLException</span> e) {
+        System.out.<span class="fn">println</span>(<span class="str">"DB error"</span>);
+    } <span class="kw">finally</span> {
+        conn.<span class="fn">close</span>();
+        <span class="kw">return null</span>;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain the code and what it intends to do</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Find all 3+ issues including the finally block trap</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using try-with-resources or proper finally logic</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">return in finally masks exception</span><span class="chip c-orange">NullPointerException in finally</span><span class="chip c-blue">Connection not returned to caller</span><span class="chip c-purple">try-with-resources</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q4</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code tries to send an email with retry logic. What are the problems and how do you fix it for production?</div><div class="qhint">📍 Retry logic · Exception types · Infinite loop risk</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">sendEmail</span>(<span class="cls">String</span> to, <span class="cls">String</span> body) {
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">try</span> {
+            emailService.<span class="fn">send</span>(to, body);
+            <span class="kw">break</span>;
+        } <span class="kw">catch</span> (<span class="cls">Exception</span> e) {
+            System.out.<span class="fn">println</span>(<span class="str">"Retrying..."</span>);
+        }
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain what this code tries to do</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What happens if the email server is permanently down?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with max retries, exponential backoff, and proper exception types</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Infinite loop risk</span><span class="chip c-orange">No max retry limit</span><span class="chip c-blue">No backoff delay</span><span class="chip c-purple">Catching root Exception</span><span class="chip c-green">Exponential backoff</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q5</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code has a multi-catch block. Is there a problem with how exceptions are caught?</div><div class="qhint">📍 Multi-catch · Exception hierarchy · Unreachable catch</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">try</span> {
+    processPayment(order);
+} <span class="kw">catch</span> (<span class="cls">Exception</span> e) {
+    log.<span class="fn">error</span>(<span class="str">"Error"</span>, e);
+} <span class="kw">catch</span> (<span class="cls">PaymentException</span> e) {
+    log.<span class="fn">error</span>(<span class="str">"Payment failed"</span>, e);
+    <span class="fn">notifyFinanceTeam</span>(e);
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Will this code compile? Why or why not?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is the fundamental mistake in catch block ordering?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix the catch order and explain the rule clearly</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Unreachable catch block</span><span class="chip c-orange">Exception hierarchy order</span><span class="chip c-blue">Specific before general</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NULL & NPE -->
+  <div class="sec" id="nullpointer">
+    <p class="sec-hdr">🔴 Null & NullPointerException</p>
+    <p class="sec-sub">NPE is the most common Java runtime crash — Salesforce TSE must catch these in code review</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q6</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">How many places can this code throw a NullPointerException? Find all of them.</div><div class="qhint">📍 NPE · Method chaining · Null checks</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">getCity</span>(<span class="cls">User</span> user) {
+    <span class="kw">return</span> user.getAddress().getCity().toUpperCase();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Identify every possible NPE location in the chain</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix with traditional null checks</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using Java Optional — which is the production-preferred approach?</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Method chaining NPE</span><span class="chip c-blue">Optional.ofNullable</span><span class="chip c-green">Defensive programming</span><span class="chip c-purple">3 NPE points</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q7</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code is supposed to check if a user is an admin. What is the bug and when will it crash?</div><div class="qhint">📍 String comparison · equals() vs == · NPE on null string</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public boolean</span> <span class="fn">isAdmin</span>(<span class="cls">User</span> user) {
+    <span class="cls">String</span> role = user.<span class="fn">getRole</span>();
+    <span class="kw">if</span> (role == <span class="str">"ADMIN"</span>) {
+        <span class="kw">return true</span>;
+    }
+    <span class="kw">return false</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain why == fails for String comparison in Java</span></div>
+          <div class="task-item"><span>2️⃣</span><span>When does this crash with NPE? What if role is null?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix using equals(), equalsIgnoreCase(), and null-safe pattern</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">== vs .equals()</span><span class="chip c-orange">String pool vs heap</span><span class="chip c-blue">Null-safe "ADMIN".equals(role)</span><span class="chip c-green">Yoda condition</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q8</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This method returns a list but can cause an NPE in the caller. Fix it so the caller is always safe.</div><div class="qhint">📍 Returning null vs empty · Defensive API design</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; <span class="fn">getOrders</span>(<span class="kw">int</span> userId) {
+    <span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; orders = database.<span class="fn">query</span>(userId);
+    <span class="kw">if</span> (orders.isEmpty()) {
+        <span class="kw">return null</span>;
+    }
+    <span class="kw">return</span> orders;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What is wrong with returning null from a collection method?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What happens if database.query() itself returns null?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using Collections.emptyList() and null-safe DB result handling</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Never return null for collections</span><span class="chip c-blue">Collections.emptyList()</span><span class="chip c-orange">Null from DB result</span><span class="chip c-green">API design principle</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q9</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code processes a payment. Find all NPE risks and the logic bug that could cause financial errors.</div><div class="qhint">📍 NPE in payment flow · Null amount · Unboxing NPE</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">processPayment</span>(<span class="cls">Order</span> order) {
+    <span class="cls">Double</span> amount = order.<span class="fn">getAmount</span>();
+    <span class="kw">if</span> (amount > <span class="num">0</span>) {
+        paymentGateway.<span class="fn">charge</span>(order.getUser(), amount);
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why is using Double (wrapper) instead of double (primitive) dangerous here?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Find all NPE risks including auto-unboxing</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with null checks, primitive types where safe, and input validation</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Auto-unboxing NPE</span><span class="chip c-orange">Wrapper vs primitive</span><span class="chip c-blue">Null amount in finance = critical</span><span class="chip c-purple">Input validation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q10</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code sends a welcome email. When will it throw NPE and what simple fix prevents it?</div><div class="qhint">📍 Object null check · Guard clause</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">sendWelcomeEmail</span>(<span class="cls">User</span> user) {
+    emailService.<span class="fn">send</span>(
+        user.<span class="fn">getEmail</span>(),
+        <span class="str">"Welcome, "</span> + user.<span class="fn">getName</span>() + <span class="str">"!"</span>
+    );
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>List every scenario that causes NPE in this method</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is a "guard clause" and how do you apply it here?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the production-safe version with input validation and logging</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Guard clause pattern</span><span class="chip c-blue">Validate inputs at method entry</span><span class="chip c-green">Objects.requireNonNull()</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCE MANAGEMENT -->
+  <div class="sec" id="resources">
+    <p class="sec-hdr">📁 Resource Management & Leaks</p>
+    <p class="sec-sub">File handles, DB connections, streams — not closing them causes production outages</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q11</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code reads a file but has a serious resource leak. Explain why and fix it two different ways.</div><div class="qhint">📍 File stream · Resource leak · try-with-resources</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">readConfig</span>(<span class="cls">String</span> path) <span class="kw">throws</span> <span class="cls">IOException</span> {
+    <span class="cls">FileReader</span> fr = <span class="kw">new</span> <span class="cls">FileReader</span>(path);
+    <span class="cls">BufferedReader</span> br = <span class="kw">new</span> <span class="cls">BufferedReader</span>(fr);
+    <span class="kw">return</span> br.<span class="fn">readLine</span>();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What is a resource leak and what happens to file handles over time?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix using try-finally (old style)</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix using try-with-resources (Java 7+ preferred) and explain why it is better</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Resource leak</span><span class="chip c-blue">AutoCloseable interface</span><span class="chip c-green">try-with-resources</span><span class="chip c-orange">OS file handle limit</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q12</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This database access code works in dev but causes connection pool exhaustion in production. Why?</div><div class="qhint">📍 DB connection pool · Not closing connections · Production scalability</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">User</span> <span class="fn">findUser</span>(<span class="kw">int</span> id) {
+    <span class="kw">try</span> {
+        <span class="cls">Connection</span> conn = dataSource.<span class="fn">getConnection</span>();
+        <span class="cls">PreparedStatement</span> ps = conn.<span class="fn">prepareStatement</span>(
+            <span class="str">"SELECT * FROM users WHERE id = ?"</span>);
+        ps.<span class="fn">setInt</span>(<span class="num">1</span>, id);
+        <span class="cls">ResultSet</span> rs = ps.<span class="fn">executeQuery</span>();
+        <span class="kw">return</span> <span class="fn">mapToUser</span>(rs);
+    } <span class="kw">catch</span> (<span class="cls">SQLException</span> e) {
+        <span class="kw">throw new</span> <span class="cls">RuntimeException</span>(e);
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain what a connection pool is and why exhausting it crashes production</span></div>
+          <div class="task-item"><span>2️⃣</span><span>How many resources are leaking here? Name each one</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with proper try-with-resources closing Connection, PreparedStatement, and ResultSet</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">3 unclosed resources</span><span class="chip c-orange">Connection pool exhaustion</span><span class="chip c-blue">Nested try-with-resources</span><span class="chip c-purple">Production vs dev behavior</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q13</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code writes data to a file. What happens if the application crashes before it finishes?</div><div class="qhint">📍 Stream flush · Data loss · Buffered writer</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">writeLogs</span>(<span class="cls">List</span>&lt;<span class="cls">String</span>&gt; logs) <span class="kw">throws</span> <span class="cls">IOException</span> {
+    <span class="cls">BufferedWriter</span> bw = <span class="kw">new</span> <span class="cls">BufferedWriter</span>(
+        <span class="kw">new</span> <span class="cls">FileWriter</span>(<span class="str">"app.log"</span>, <span class="kw">true</span>));
+    <span class="kw">for</span> (<span class="cls">String</span> log : logs) {
+        bw.<span class="fn">write</span>(log);
+        bw.<span class="fn">newLine</span>();
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why does BufferedWriter sometimes not write data to disk even after write() is called?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is the resource leak and data loss risk here?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix using try-with-resources which auto-flushes and closes the stream</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Buffer not flushed</span><span class="chip c-blue">close() triggers flush()</span><span class="chip c-orange">Data loss on crash</span><span class="chip c-green">try-with-resources</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q14</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This HTTP client code works for single users but causes issues at scale. Find the design flaw.</div><div class="qhint">📍 HTTP client reuse · Connection overhead · Static vs instance</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">callExternalApi</span>(<span class="cls">String</span> url) {
+    <span class="cls">HttpClient</span> client = <span class="cls">HttpClient</span>.<span class="fn">newHttpClient</span>();
+    <span class="cls">HttpRequest</span> request = <span class="cls">HttpRequest</span>.<span class="fn">newBuilder</span>()
+        .<span class="fn">uri</span>(<span class="cls">URI</span>.<span class="fn">create</span>(url))
+        .<span class="fn">build</span>();
+    <span class="kw">return</span> client.<span class="fn">send</span>(request,
+        <span class="cls">HttpResponse</span>.BodyHandlers.<span class="fn">ofString</span>())
+        .body();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why is creating a new HttpClient on every call wasteful?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What connection and resource overhead does this create at 1000 requests/sec?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using a shared singleton HttpClient and add timeout + exception handling</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Client created per request</span><span class="chip c-blue">Singleton pattern</span><span class="chip c-orange">Connection pool reuse</span><span class="chip c-purple">Timeout configuration</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOOPS & LOGIC -->
+  <div class="sec" id="loops">
+    <p class="sec-hdr">🔁 Loops, Logic & Control Flow</p>
+    <p class="sec-sub">Off-by-one errors, infinite loops, wrong conditions — classic TSE bug-finding scenarios</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q15</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This method processes a list of user records. Find the bug that causes it to skip the last record every time.</div><div class="qhint">📍 Off-by-one error · Loop boundary · Classic bug</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">processUsers</span>(<span class="cls">List</span>&lt;<span class="cls">User</span>&gt; users) {
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; users.size() - <span class="num">1</span>; i++) {
+        <span class="fn">processUser</span>(users.<span class="fn">get</span>(i));
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why does this loop skip the last user in the list?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix the loop condition</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using enhanced for-each loop which is cleaner and avoids index errors</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Off-by-one error</span><span class="chip c-blue">size() - 1 vs size()</span><span class="chip c-green">Enhanced for-each</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q16</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code is supposed to deactivate inactive accounts. But it never deactivates any account. Why?</div><div class="qhint">📍 Boolean logic · Wrong condition · Negation bug</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">deactivateInactiveAccounts</span>(<span class="cls">List</span>&lt;<span class="cls">Account</span>&gt; accounts) {
+    <span class="kw">for</span> (<span class="cls">Account</span> acc : accounts) {
+        <span class="kw">if</span> (acc.<span class="fn">isActive</span>() == <span class="kw">false</span>) {
+            acc.<span class="fn">setActive</span>(<span class="kw">false</span>);
+        }
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Trace through the logic — when does the if block execute?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is the correct condition to find active accounts and deactivate them?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with correct logic and cleaner boolean expression</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Wrong boolean condition</span><span class="chip c-blue">Deactivating already inactive</span><span class="chip c-green">!acc.isActive() preferred</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q17</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code modifies a list while iterating it. What exception will it throw and how do you fix it?</div><div class="qhint">📍 ConcurrentModificationException · Iterator · Remove while looping</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">removeExpiredSessions</span>(<span class="cls">List</span>&lt;<span class="cls">Session</span>&gt; sessions) {
+    <span class="kw">for</span> (<span class="cls">Session</span> s : sessions) {
+        <span class="kw">if</span> (s.<span class="fn">isExpired</span>()) {
+            sessions.<span class="fn">remove</span>(s);
+        }
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why does removing from a list while iterating throw ConcurrentModificationException?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix using Iterator.remove() — show the code</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using Java 8 removeIf() — the cleanest modern solution</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">ConcurrentModificationException</span><span class="chip c-blue">Iterator.remove()</span><span class="chip c-green">list.removeIf()</span><span class="chip c-purple">Fail-fast iterator</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q18</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This discount calculation has a logic flaw that gives customers wrong discounts. Find and fix it.</div><div class="qhint">📍 Condition ordering · Overlapping conditions · Pricing bug</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public double</span> <span class="fn">getDiscount</span>(<span class="kw">double</span> orderTotal) {
+    <span class="kw">if</span> (orderTotal > <span class="num">100</span>) {
+        <span class="kw">return</span> <span class="num">0.10</span>;
+    } <span class="kw">else if</span> (orderTotal > <span class="num">500</span>) {
+        <span class="kw">return</span> <span class="num">0.20</span>;
+    } <span class="kw">else if</span> (orderTotal > <span class="num">1000</span>) {
+        <span class="kw">return</span> <span class="num">0.30</span>;
+    }
+    <span class="kw">return</span> <span class="num">0</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What discount does an order of ₹2000 get? Why is that wrong?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Explain the condition ordering problem — which branch always wins?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix the condition order so customers get the correct discount tier</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Unreachable conditions</span><span class="chip c-orange">Check most specific first</span><span class="chip c-blue">Tier logic ordering</span><span class="chip c-green">Financial logic bug</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q19</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code calculates average order value but crashes when there are no orders. Fix it.</div><div class="qhint">📍 Division by zero · Edge case · Guard condition</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public double</span> <span class="fn">getAverageOrderValue</span>(<span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; orders) {
+    <span class="kw">double</span> total = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="cls">Order</span> o : orders) {
+        total += o.<span class="fn">getAmount</span>();
+    }
+    <span class="kw">return</span> total / orders.size();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>When does this throw ArithmeticException and when does it throw NPE?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What should the method return when orders list is empty or null?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the production-ready version with null check, empty check, and Optional return type</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Division by zero</span><span class="chip c-orange">Null list NPE</span><span class="chip c-blue">Optional return type</span><span class="chip c-green">Edge case handling</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRINGS -->
+  <div class="sec" id="strings">
+    <p class="sec-hdr">🔤 String Handling</p>
+    <p class="sec-sub">String is immutable in Java — misuse causes memory issues and wrong comparisons</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q20</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code builds a report by concatenating strings in a loop. Why is this a performance problem in production?</div><div class="qhint">📍 String immutability · StringBuilder · Memory allocation</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">buildReport</span>(<span class="cls">List</span>&lt;<span class="cls">String</span>&gt; lines) {
+    <span class="cls">String</span> report = <span class="str">""</span>;
+    <span class="kw">for</span> (<span class="cls">String</span> line : lines) {
+        report = report + line + <span class="str">"\n"</span>;
+    }
+    <span class="kw">return</span> report;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why does String concatenation in a loop create hundreds of garbage objects?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is the time complexity of this vs StringBuilder?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using StringBuilder and also show the Java 8 String.join() / Collectors.joining() approach</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">String immutability</span><span class="chip c-blue">StringBuilder</span><span class="chip c-orange">O(n²) vs O(n)</span><span class="chip c-green">Collectors.joining()</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q21</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code checks if a username is valid. What is wrong with the validation logic?</div><div class="qhint">📍 String methods · Empty vs null · Trim before validate</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public boolean</span> <span class="fn">isValidUsername</span>(<span class="cls">String</span> username) {
+    <span class="kw">if</span> (username.length() > <span class="num">0</span> && username.length() <= <span class="num">20</span>) {
+        <span class="kw">return true</span>;
+    }
+    <span class="kw">return false</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What happens if username is null? What if it is "   " (only spaces)?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>List all missing validations for a production username check</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write a complete validation with null check, trim, length, and regex pattern check</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">NPE on null input</span><span class="chip c-orange">Spaces pass validation</span><span class="chip c-blue">trim() before check</span><span class="chip c-purple">Regex for allowed chars</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q22</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code parses an integer from user input. What problems can occur and how do you make it bulletproof?</div><div class="qhint">📍 NumberFormatException · User input parsing · Defensive parsing</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public int</span> <span class="fn">getPageNumber</span>(<span class="cls">String</span> input) {
+    <span class="kw">int</span> page = <span class="cls">Integer</span>.<span class="fn">parseInt</span>(input);
+    <span class="kw">return</span> page;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What exceptions can parseInt throw? Under which inputs?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What business rules should page number validation include?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the complete safe version with try-catch, null check, range validation, and default fallback</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">NumberFormatException</span><span class="chip c-orange">NPE on null</span><span class="chip c-blue">Input sanitization</span><span class="chip c-green">Default value fallback</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q23</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code logs user activity including their password. What is the critical security issue?</div><div class="qhint">📍 Sensitive data in logs · Security · PII exposure</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">logLoginAttempt</span>(<span class="cls">String</span> username, <span class="cls">String</span> password) {
+    logger.<span class="fn">info</span>(<span class="str">"Login attempt: user="</span> + username 
+        + <span class="str">" password="</span> + password 
+        + <span class="str">" at="</span> + <span class="cls">System</span>.<span class="fn">currentTimeMillis</span>());
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why is logging a password an immediate security incident in a SaaS company?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What compliance regulations (GDPR, PCI-DSS) does this violate?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite logging only safe data and mask/redact sensitive fields</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Password in logs = critical</span><span class="chip c-orange">GDPR / PCI-DSS</span><span class="chip c-blue">Data masking</span><span class="chip c-purple">Security-first logging</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLECTIONS -->
+  <div class="sec" id="collections">
+    <p class="sec-hdr">📦 Collections & Data Structures</p>
+    <p class="sec-sub">Wrong collection choice causes performance, thread-safety, and data loss issues</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q24</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code stores user session tokens. It allows duplicate tokens. What collection should be used instead and why?</div><div class="qhint">📍 Set vs List · Duplicates · Data integrity</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">SessionManager</span> {
+    <span class="kw">private</span> <span class="cls">List</span>&lt;<span class="cls">String</span>&gt; activeTokens = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+
+    <span class="kw">public void</span> <span class="fn">addToken</span>(<span class="cls">String</span> token) {
+        activeTokens.<span class="fn">add</span>(token);
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">isValid</span>(<span class="cls">String</span> token) {
+        <span class="kw">return</span> activeTokens.<span class="fn">contains</span>(token);
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why is ArrayList wrong for storing unique tokens? What is the O(n) lookup problem?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is the time complexity of contains() on ArrayList vs HashSet?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using HashSet and explain when you would use LinkedHashSet or TreeSet</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Duplicate tokens allowed</span><span class="chip c-orange">O(n) vs O(1) lookup</span><span class="chip c-blue">HashSet for uniqueness</span><span class="chip c-green">Collection choice matters</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q25</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code caches user data in a HashMap shared across threads. What is the critical problem?</div><div class="qhint">📍 HashMap thread-safety · ConcurrentHashMap · Race condition</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">UserCache</span> {
+    <span class="kw">private static</span> <span class="cls">Map</span>&lt;<span class="cls">Integer</span>, <span class="cls">User</span>&gt; cache 
+        = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();
+
+    <span class="kw">public void</span> <span class="fn">put</span>(<span class="kw">int</span> id, <span class="cls">User</span> user) {
+        cache.<span class="fn">put</span>(id, user);
+    }
+
+    <span class="kw">public</span> <span class="cls">User</span> <span class="fn">get</span>(<span class="kw">int</span> id) {
+        <span class="kw">return</span> cache.<span class="fn">get</span>(id);
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Why is HashMap not thread-safe? What can happen with concurrent puts?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is an infinite loop risk with HashMap in Java 7 and before?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix using ConcurrentHashMap and explain when to use Collections.synchronizedMap() instead</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">HashMap not thread-safe</span><span class="chip c-blue">ConcurrentHashMap</span><span class="chip c-orange">Data corruption risk</span><span class="chip c-purple">Static shared state</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q26</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code tries to find and update an order in a list. It silently does nothing if the order doesn't exist. Fix it properly.</div><div class="qhint">📍 Missing not-found handling · Silent failure · Optional</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">updateOrderStatus</span>(<span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; orders, 
+                                  <span class="kw">int</span> orderId, <span class="cls">String</span> status) {
+    <span class="kw">for</span> (<span class="cls">Order</span> o : orders) {
+        <span class="kw">if</span> (o.<span class="fn">getId</span>() == orderId) {
+            o.<span class="fn">setStatus</span>(status);
+        }
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What happens if orderId doesn't exist in the list? Is silent no-op acceptable in production?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Should it throw an exception or return a boolean result?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite with break after update, not-found handling, and Java Stream filter approach</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Silent failure</span><span class="chip c-blue">Break after update</span><span class="chip c-orange">Not-found exception</span><span class="chip c-green">Stream filter findFirst</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q27</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code counts word frequency but gives wrong results. Find the HashMap logic bug.</div><div class="qhint">📍 getOrDefault · Map logic · Word frequency</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">Integer</span>&gt; <span class="fn">countWords</span>(<span class="cls">String</span>[] words) {
+    <span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">Integer</span>&gt; freq = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();
+    <span class="kw">for</span> (<span class="cls">String</span> word : words) {
+        <span class="kw">if</span> (!freq.<span class="fn">containsKey</span>(word)) {
+            freq.<span class="fn">put</span>(word, <span class="num">1</span>);
+        } <span class="kw">else</span> {
+            freq.<span class="fn">put</span>(word, freq.<span class="fn">get</span>(word));
+        }
+    }
+    <span class="kw">return</span> freq;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What is the bug in the else branch — what does it actually do?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix using freq.get(word) + 1</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using getOrDefault() and also using merge() — the cleanest Java 8 approach</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">+1 missing in else</span><span class="chip c-blue">getOrDefault()</span><span class="chip c-green">map.merge()</span><span class="chip c-orange">Common HashMap pattern</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCURRENCY -->
+  <div class="sec" id="concurrency">
+    <p class="sec-hdr">⚡ Concurrency & Thread Safety</p>
+    <p class="sec-sub">Multi-threaded bugs are the hardest to find — they only appear under load in production</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q28</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This ticket booking system has a race condition that allows overbooking. Find it and fix it.</div><div class="qhint">📍 Race condition · synchronized · AtomicInteger</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">TicketService</span> {
+    <span class="kw">private int</span> availableSeats = <span class="num">100</span>;
+
+    <span class="kw">public boolean</span> <span class="fn">bookSeat</span>() {
+        <span class="kw">if</span> (availableSeats > <span class="num">0</span>) {
+            availableSeats--;
+            <span class="kw">return true</span>;
+        }
+        <span class="kw">return false</span>;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Draw out the race condition — two threads both see availableSeats=1 and both book. What happens?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix using synchronized keyword</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using AtomicInteger.decrementAndGet() — better performance than synchronized</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Race condition</span><span class="chip c-blue">synchronized method</span><span class="chip c-green">AtomicInteger</span><span class="chip c-purple">Check-then-act atomicity</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q29</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This singleton implementation is broken in a multithreaded environment. How and why?</div><div class="qhint">📍 Singleton · Double-checked locking · volatile</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">ConfigManager</span> {
+    <span class="kw">private static</span> <span class="cls">ConfigManager</span> instance;
+
+    <span class="kw">public static</span> <span class="cls">ConfigManager</span> <span class="fn">getInstance</span>() {
+        <span class="kw">if</span> (instance == <span class="kw">null</span>) {
+            instance = <span class="kw">new</span> <span class="cls">ConfigManager</span>();
+        }
+        <span class="kw">return</span> instance;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain how two threads can both see instance==null and create two instances</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Fix using double-checked locking with volatile keyword</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Show the cleanest singleton using static inner class (Bill Pugh pattern) — no synchronization needed</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Non-thread-safe singleton</span><span class="chip c-blue">volatile keyword</span><span class="chip c-green">Bill Pugh pattern</span><span class="chip c-purple">Double-checked locking</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q30</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code submits 1000 tasks to process orders. What is wrong with creating new threads manually?</div><div class="qhint">📍 Thread pool · ExecutorService · Resource exhaustion</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">processAllOrders</span>(<span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; orders) {
+    <span class="kw">for</span> (<span class="cls">Order</span> order : orders) {
+        <span class="kw">new</span> <span class="cls">Thread</span>(() -&gt; {
+            <span class="fn">processOrder</span>(order);
+        }).<span class="fn">start</span>();
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What happens to the JVM when you create 1000 threads simultaneously?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Why is thread creation expensive — what does it involve at OS level?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using ExecutorService thread pool with fixed thread count and proper shutdown</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Thread per task antipattern</span><span class="chip c-blue">ExecutorService</span><span class="chip c-green">Fixed thread pool</span><span class="chip c-orange">Resource exhaustion</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN & OOP -->
+  <div class="sec" id="design">
+    <p class="sec-hdr">🏗️ Design, OOP & Code Quality</p>
+    <p class="sec-sub">Is the code maintainable, extensible, and following good design principles?</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q31</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This method does too many things. What is the design principle it violates and how do you refactor it?</div><div class="qhint">📍 Single Responsibility · God method · Refactoring</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">handleUserRegistration</span>(<span class="cls">User</span> user) {
+    <span class="cm">// Validate</span>
+    <span class="kw">if</span> (user.<span class="fn">getEmail</span>() == <span class="kw">null</span>) <span class="kw">throw new</span> <span class="cls">RuntimeException</span>(<span class="str">"Invalid"</span>);
+    <span class="cm">// Save to DB</span>
+    database.<span class="fn">insert</span>(user);
+    <span class="cm">// Send email</span>
+    emailService.<span class="fn">send</span>(user.<span class="fn">getEmail</span>(), <span class="str">"Welcome!"</span>);
+    <span class="cm">// Log</span>
+    logger.<span class="fn">info</span>(<span class="str">"User registered: "</span> + user.<span class="fn">getId</span>());
+    <span class="cm">// Update analytics</span>
+    analytics.<span class="fn">track</span>(<span class="str">"signup"</span>, user);
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Name the design principle this violates and explain why it matters for maintenance</span></div>
+          <div class="task-item"><span>2️⃣</span><span>How many responsibilities does this method have?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Refactor into separate methods/services, each with one clear responsibility</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Single Responsibility Principle</span><span class="chip c-blue">SOLID principles</span><span class="chip c-green">Refactoring</span><span class="chip c-purple">Testability</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q32</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This payment processor uses if-else to handle different payment types. What is wrong with adding a new payment type later?</div><div class="qhint">📍 Open/Closed principle · Strategy pattern · Extensibility</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public void</span> <span class="fn">processPayment</span>(<span class="cls">String</span> type, <span class="kw">double</span> amount) {
+    <span class="kw">if</span> (type.<span class="fn">equals</span>(<span class="str">"CREDIT"</span>)) {
+        creditCardProcessor.<span class="fn">charge</span>(amount);
+    } <span class="kw">else if</span> (type.<span class="fn">equals</span>(<span class="str">"UPI"</span>)) {
+        upiProcessor.<span class="fn">charge</span>(amount);
+    } <span class="kw">else if</span> (type.<span class="fn">equals</span>(<span class="str">"CRYPTO"</span>)) {
+        cryptoProcessor.<span class="fn">charge</span>(amount);
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What happens every time a new payment type is added? Which SOLID principle is violated?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What design pattern solves this problem?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Refactor using Strategy pattern with a PaymentProcessor interface</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Open/Closed Principle</span><span class="chip c-blue">Strategy Pattern</span><span class="chip c-green">Interface-based design</span><span class="chip c-purple">Extensible without modification</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q33</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code has hardcoded configuration values. Why is this a production deployment problem?</div><div class="qhint">📍 Hardcoded config · Environment-specific values · Externalized config</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">DatabaseConfig</span> {
+    <span class="kw">private static final</span> <span class="cls">String</span> URL = 
+        <span class="str">"jdbc:mysql://prod-db.company.com:3306/salesdb"</span>;
+    <span class="kw">private static final</span> <span class="cls">String</span> USER = <span class="str">"admin"</span>;
+    <span class="kw">private static final</span> <span class="cls">String</span> PASSWORD = <span class="str">"MyP@ssw0rd123"</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>List all the problems: security, deployment, environment switching</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What happens when this code is committed to GitHub accidentally?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Rewrite using environment variables, properties file, or a secrets manager approach</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Credentials in code = critical</span><span class="chip c-orange">No env separation</span><span class="chip c-blue">Environment variables</span><span class="chip c-purple">Secrets manager</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q34</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This equals() override is incomplete. What bug does it introduce when using this object in a HashSet or HashMap?</div><div class="qhint">📍 equals and hashCode contract · Collections behavior</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">Product</span> {
+    <span class="kw">private int</span> id;
+    <span class="kw">private</span> <span class="cls">String</span> name;
+
+    <span class="ann">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(<span class="cls">Object</span> o) {
+        <span class="cls">Product</span> p = (<span class="cls">Product</span>) o;
+        <span class="kw">return</span> <span class="kw">this</span>.id == p.id;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Explain the equals-hashCode contract in Java — why must they both be overridden together?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What happens when Product is stored in a HashSet and you try to find it?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the complete correct equals() and hashCode() — also add instanceof null check</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Missing hashCode()</span><span class="chip c-blue">equals-hashCode contract</span><span class="chip c-orange">HashSet broken without hashCode</span><span class="chip c-green">Objects.hash()</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q35</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This API response builder has a method chaining bug. The object is always returned in a default state. Why?</div><div class="qhint">📍 Builder pattern · Return this · Immutable builder</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">ApiResponse</span> {
+    <span class="kw">private int</span> status;
+    <span class="kw">private</span> <span class="cls">String</span> message;
+
+    <span class="kw">public</span> <span class="cls">ApiResponse</span> <span class="fn">withStatus</span>(<span class="kw">int</span> status) {
+        <span class="kw">this</span>.status = status;
+        <span class="kw">return new</span> <span class="cls">ApiResponse</span>();
+    }
+
+    <span class="kw">public</span> <span class="cls">ApiResponse</span> <span class="fn">withMessage</span>(<span class="cls">String</span> msg) {
+        <span class="kw">this</span>.message = msg;
+        <span class="kw">return new</span> <span class="cls">ApiResponse</span>();
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Trace through new ApiResponse().withStatus(200).withMessage("OK") — what do you get?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What should builder methods return — new object or this?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix the builder so method chaining works correctly and builds the right object</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">return new vs return this</span><span class="chip c-blue">Builder pattern</span><span class="chip c-green">Method chaining</span><span class="chip c-orange">Fluent API design</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q36</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This code directly exposes internal collection state. Why is this a serious encapsulation violation?</div><div class="qhint">📍 Encapsulation · Defensive copy · Mutable return</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">OrderService</span> {
+    <span class="kw">private</span> <span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; orders = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+
+    <span class="kw">public</span> <span class="cls">List</span>&lt;<span class="cls">Order</span>&gt; <span class="fn">getOrders</span>() {
+        <span class="kw">return</span> orders;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What can a caller do with the returned list that breaks the OrderService invariants?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What is a defensive copy and why does it protect encapsulation?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix by returning Collections.unmodifiableList() or a new ArrayList copy</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Encapsulation violation</span><span class="chip c-blue">Defensive copy</span><span class="chip c-green">Collections.unmodifiableList()</span><span class="chip c-orange">Internal state exposure</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q37</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code generates a unique order ID but will produce duplicates in a distributed system. Why and how do you fix it?</div><div class="qhint">📍 UUID · Timestamp-based ID · Distributed systems</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">generateOrderId</span>() {
+    <span class="kw">return</span> <span class="str">"ORD-"</span> + <span class="cls">System</span>.<span class="fn">currentTimeMillis</span>();
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>When will two orders get the same ID? What is the collision scenario?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Why does this fail in a distributed system with multiple servers?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Fix using UUID.randomUUID() and explain when you'd use Snowflake IDs or DB sequences instead</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Timestamp collision</span><span class="chip c-blue">UUID.randomUUID()</span><span class="chip c-orange">Distributed ID generation</span><span class="chip c-purple">Snowflake ID concept</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q38</span><span class="lvbadge lv1">L1</span></div>
+        <div class="qright"><div class="qtitle">This static utility method has a hidden state problem. Find it and fix the design.</div><div class="qhint">📍 Static mutable state · Thread safety · Stateless utility</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public class</span> <span class="cls">TaxCalculator</span> {
+    <span class="kw">private static double</span> lastCalculatedTax = <span class="num">0</span>;
+
+    <span class="kw">public static double</span> <span class="fn">calculate</span>(<span class="kw">double</span> amount) {
+        lastCalculatedTax = amount * <span class="num">0.18</span>;
+        <span class="kw">return</span> lastCalculatedTax;
+    }
+
+    <span class="kw">public static double</span> <span class="fn">getLastTax</span>() {
+        <span class="kw">return</span> lastCalculatedTax;
+    }
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What happens to lastCalculatedTax when 2 threads call calculate() simultaneously?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Why should utility classes be stateless?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Refactor to a stateless design where calculate() returns the result directly with no shared state</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Static mutable state</span><span class="chip c-blue">Thread safety violation</span><span class="chip c-green">Stateless utility pattern</span><span class="chip c-orange">Shared state danger</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q39</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This notification service sends emails synchronously in the user registration flow. What is the production impact and how do you fix it?</div><div class="qhint">📍 Synchronous vs async · Response time · Decoupling</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">User</span> <span class="fn">registerUser</span>(<span class="cls">UserDto</span> dto) {
+    <span class="cls">User</span> user = userRepository.<span class="fn">save</span>(dto);
+    <span class="cm">// This takes 3-5 seconds</span>
+    emailService.<span class="fn">sendWelcomeEmail</span>(user);
+    <span class="cm">// This takes 2-3 seconds</span>
+    smsService.<span class="fn">sendVerificationSms</span>(user);
+    <span class="kw">return</span> user;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>What is the user-facing impact of 5-8 second registration response time?</span></div>
+          <div class="task-item"><span>2️⃣</span><span>What happens if email service is down — does user registration also fail?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Refactor using async processing — CompletableFuture or event/queue-based approach</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 Concepts Tested</div>
+          <div class="chips"><span class="chip c-red">Synchronous blocking call</span><span class="chip c-blue">CompletableFuture.runAsync()</span><span class="chip c-green">Event-driven decoupling</span><span class="chip c-purple">Service independence</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)">
+        <div class="qleft"><span class="qnum">Q40</span><span class="lvbadge lv2">L2</span></div>
+        <div class="qright"><div class="qtitle">This code is a complete mini user authentication flow. Find ALL issues across exception handling, security, logic, and production-readiness. Write the perfect version.</div><div class="qhint">📍 Final boss question · All concepts combined · Production-ready</div></div>
+        <span class="qarrow">▾</span>
+      </div>
+      <div class="qbody">
+        <div class="code-block"><pre><span class="kw">public</span> <span class="cls">String</span> <span class="fn">authenticateUser</span>(<span class="cls">String</span> username, <span class="cls">String</span> password) {
+    <span class="cls">User</span> user = userRepo.<span class="fn">findByUsername</span>(username);
+    <span class="kw">if</span> (user.getPassword() == password) {
+        <span class="cls">String</span> token = username + <span class="cls">System</span>.<span class="fn">currentTimeMillis</span>();
+        System.out.<span class="fn">println</span>(<span class="str">"Token: "</span> + token);
+        <span class="kw">return</span> token;
+    }
+    <span class="kw">return null</span>;
+}</pre></div>
+        <div class="task-box">
+          <div class="task-lbl">📋 Your 3 Tasks</div>
+          <div class="task-item"><span>1️⃣</span><span>Find ALL issues — there are at least 6 distinct problems across security, NPE, logic, and design</span></div>
+          <div class="task-item"><span>2️⃣</span><span>Explain the severity of each issue — which ones are P1 security incidents?</span></div>
+          <div class="task-item"><span>3️⃣</span><span>Write the complete production-ready authentication method</span></div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-lbl">🔑 All Issues To Find</div>
+          <div class="chips"><span class="chip c-red">NPE if user not found</span><span class="chip c-red">== for password comparison</span><span class="chip c-red">Plaintext password stored?</span><span class="chip c-red">Weak token (timestamp)</span><span class="chip c-red">Token printed to console</span><span class="chip c-orange">Returning null on failure</span><span class="chip c-blue">No logging of failed attempts</span><span class="chip c-purple">No brute force protection</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button onclick="sendPrompt('Show me the complete production-ready solution for Q40 — the authenticateUser method with all 6 issues fixed')">Q40 Full Solution ↗</button>
+    <button onclick="sendPrompt('Give me a complete production-ready solution for the processUserSignup Q1 code with all issues fixed and explained')">Q1 Full Solution ↗</button>
+    <button onclick="sendPrompt('Quiz me on Java exception handling — ask me 5 rapid-fire questions like a Salesforce TSE interviewer')">Start Java Quiz ↗</button>
+    <button onclick="sendPrompt('What are the top 10 Java concepts a Salesforce TSE L1 must know cold before the interview?')">Top 10 must-know concepts ↗</button>
+  </div>
+</div>
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+function toggle(header) {
+  var body = header.nextElementSibling;
+  var arrow = header.querySelector('.qarrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+</script>
+</body>
+</html>

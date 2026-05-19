@@ -1,0 +1,705 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 1rem 0; font-family: var(--font-sans); }
+.hdr h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.hdr p { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 10px; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+.stat { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; padding: 5px 12px; font-size: 12px; color: var(--color-text-secondary); }
+.stat b { color: var(--color-text-primary); font-weight: 600; }
+.tip-banner { background: #FFF7ED; border: 0.5px solid #FBD38D; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #92400E; margin-bottom: 1.25rem; line-height: 1.7; }
+.tip-banner b { color: #78350F; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+.tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); transition: all 0.15s; }
+.tab.active { background: #FFF0F6; color: #9D174D; border-color: #F9A8D4; font-weight: 500; }
+.sec { display: none; }
+.sec.active { display: block; }
+.sec-label { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.sec-sub { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 1rem; }
+.qcard { border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: var(--color-background-primary); }
+.qhead { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; cursor: pointer; }
+.qleft { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 36px; }
+.qnum { font-size: 11px; color: var(--color-text-tertiary); font-weight: 600; }
+.qbadge { font-size: 9px; padding: 2px 5px; border-radius: 4px; font-weight: 600; text-align: center; white-space: nowrap; }
+.b-hot { background: #FEE2E2; color: #991B1B; }
+.b-common { background: #DBEAFE; color: #1E40AF; }
+.b-hm { background: #F3E8FF; color: #6B21A8; }
+.b-tricky { background: #FEF3C7; color: #92400E; }
+.qtext { font-size: 14px; color: var(--color-text-primary); line-height: 1.5; flex: 1; }
+.qscene { font-size: 11px; color: var(--color-text-tertiary); margin-top: 3px; font-style: italic; }
+.qarrow { font-size: 13px; color: var(--color-text-tertiary); padding-top: 2px; transition: transform 0.2s; }
+.qarrow.open { transform: rotate(180deg); }
+.qbody { display: none; border-top: 0.5px solid var(--color-border-tertiary); padding: 14px; background: var(--color-background-secondary); }
+.qbody.open { display: block; }
+.script-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 6px; padding: 12px 14px; margin: 8px 0; }
+.script-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+.sl-client { color: #B45309; }
+.sl-you { color: #1D4ED8; }
+.sl-tip { color: #6B21A8; }
+.script-line { font-size: 13px; line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 4px; }
+.script-line b { font-weight: 500; }
+.script-line .speaker { font-weight: 600; }
+.client-sp { color: #B45309; }
+.you-sp { color: #1D4ED8; }
+.key-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip { font-size: 11px; padding: 2px 9px; border-radius: 10px; font-weight: 500; }
+.c-blue { background: #DBEAFE; color: #1E40AF; }
+.c-green { background: #D1FAE5; color: #065F46; }
+.c-orange { background: #FEF3C7; color: #92400E; }
+.c-red { background: #FEE2E2; color: #991B1B; }
+.c-purple { background: #EDE9FE; color: #5B21B6; }
+.c-pink { background: #FCE7F3; color: #9D174D; }
+.section-lbl { font-size: 11px; font-weight: 600; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 5px; }
+.avoid-box { background: #FEF2F2; border: 0.5px solid #FCA5A5; border-radius: 6px; padding: 10px 12px; margin-top: 8px; }
+.avoid-title { font-size: 12px; font-weight: 600; color: #991B1B; margin-bottom: 5px; }
+.avoid-item { font-size: 12px; color: #991B1B; margin-bottom: 4px; display: flex; gap: 6px; line-height: 1.5; }
+.divider { height: 0.5px; background: var(--color-border-tertiary); margin: 10px 0; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+.btns button { font-size: 12px; padding: 6px 12px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; }
+.btns button:hover { background: var(--color-background-secondary); }
+.formula-box { background: #F0FDF4; border: 0.5px solid #86EFAC; border-radius: 6px; padding: 10px 14px; margin: 8px 0; font-size: 13px; color: #065F46; line-height: 1.7; }
+.formula-box b { color: #14532D; }
+</style>
+
+<div class="wrap">
+  <div class="hdr">
+    <h1>Technical Support Engineer Interview Prep</h1>
+    <p>SaaS/Cloud · L1 Support · Scenario-based · Client Handling · HM Round</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>55+</b> Questions</div>
+    <div class="stat"><b>8</b> Topics</div>
+    <div class="stat">🔥 Client Scripts Included</div>
+    <div class="stat">👔 HM Round Covered</div>
+  </div>
+  <div class="tip-banner">
+    💡 <b>Golden Rule for TSE Interviews:</b> Every answer must show 3 things — <b>Empathy</b> (you understand their pain), <b>Ownership</b> (you will solve it, not deflect), and <b>Communication</b> (you keep them informed). Interviewers are checking how you handle pressure from a frustrated client — stay calm, stay professional, never argue.
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('troubleshoot',this)">🛠️ Troubleshooting</div>
+    <div class="tab" onclick="showTab('angry',this)">😤 Angry Client</div>
+    <div class="tab" onclick="showTab('billing',this)">💳 Billing & Refund</div>
+    <div class="tab" onclick="showTab('escalation',this)">🚨 Escalation</div>
+    <div class="tab" onclick="showTab('communication',this)">💬 Communication</div>
+    <div class="tab" onclick="showTab('technical',this)">⚙️ Technical Basics</div>
+    <div class="tab" onclick="showTab('behavioral',this)">🧠 Behavioral</div>
+    <div class="tab" onclick="showTab('hm',this)">👔 HM Round</div>
+  </div>
+
+  <!-- TROUBLESHOOTING SCENARIOS -->
+  <div class="sec active" id="troubleshoot">
+    <p class="sec-label">🛠️ Troubleshooting Scenarios</p>
+    <p class="sec-sub">Most common — how you diagnose and solve issues live on a call with a client</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "I clicked the Download PDF button in Salesforce but nothing is happening. This is your product's bug."</div><div class="qscene">📍 Scenario: Feature not working · L1 Classic</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Your Framework:</b> Acknowledge → Clarify → Isolate → Fix/Escalate → Follow-up</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Thank you for reaching out, [Name]. I completely understand how frustrating it must be when a feature you rely on stops working — let's get this sorted out right away."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "May I ask a few quick questions to help me pinpoint this faster? Which browser are you using, and when did this first happen? Has it ever worked before for you?"</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "I use Chrome. It worked last week. Now it just doesn't do anything when I click."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Got it. Let's try a couple of quick steps — first, could you do a hard refresh with Ctrl+Shift+R and try again? Also, could you try it in an Incognito window to rule out any browser extensions?"</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "Tried both — still not working."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Understood. Could you check if there's a pop-up blocker active? PDF downloads often get blocked silently. Also, I'll check on our end if there's a known issue with this feature — could you share your Org ID so I can look into your specific configuration?"</div>
+        </div>
+        <div class="section-lbl">🔑 Key Skills Being Tested</div>
+        <div class="key-chips"><span class="chip c-blue">Structured Troubleshooting</span><span class="chip c-green">Empathy First</span><span class="chip c-orange">Browser/Environment Check</span><span class="chip c-purple">Ask Right Questions</span></div>
+        <div class="section-lbl">⚠️ What NOT to Say</div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>"Are you sure you clicked it correctly?" — Never question their basic competence</span></div>
+          <div class="avoid-item"><span>🚫</span><span>"That's not our bug." — Never dismiss before investigating</span></div>
+          <div class="avoid-item"><span>🚫</span><span>"I don't know." — Say "Let me find out" instead</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "Your system has been down for 2 hours. I have a product demo in 30 minutes and I can't log into Salesforce. Fix it NOW."</div><div class="qscene">📍 Scenario: Outage during critical moment · High urgency</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Your Framework:</b> Validate urgency → Check status page → Offer workaround → Set timeline → Escalate</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I hear you, [Name], and I understand the urgency completely — a demo in 30 minutes is critical. Let me treat this as a Priority 1 right now."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I'm checking our status page as we speak — I can see there is currently a service disruption affecting some regions. Our engineering team is actively working on it. I want to be honest with you — I cannot guarantee it will be restored in 30 minutes."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "However, here's what I can do right now: First, let me check if the issue is region-specific — if you can try accessing through our mobile app or a different network, that may work. Second, I can escalate this immediately with your urgency flagged. Third, I'll stay on this call with you until we have a resolution or a clear workaround."</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "This is completely unacceptable."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely understand your frustration, and I sincerely apologize for the impact this is causing. I'm escalating this right now and will update you every 10 minutes on the status. Is there anything else I can help prepare in the meantime — like offline materials for your demo?"</div>
+        </div>
+        <div class="section-lbl">🔑 Key Skills Being Tested</div>
+        <div class="key-chips"><span class="chip c-red">Urgency Recognition</span><span class="chip c-blue">Honest Communication</span><span class="chip c-green">Workaround Thinking</span><span class="chip c-purple">Escalation Speed</span></div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>Promise a fixed time if you don't know — "It'll be up in 10 mins" when you don't know</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Put them on hold without a reason or timeline</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "I set up a workflow automation in Salesforce yesterday but it's not triggering. I followed the documentation exactly."</div><div class="qscene">📍 Scenario: Configuration issue · User may have missed a step</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Your Framework:</b> Don't assume user error → Walk through config together → Find gap → Fix without blame</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Thanks for reaching out. Automation issues can be tricky — let's walk through the setup together to make sure everything is configured correctly. Sometimes it's a small checkbox that's easy to miss."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Could you share your screen or walk me through the workflow settings? I'd like to check: Is the workflow status set to Active? What is the trigger condition set to — record creation, edit, or both?"</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "I see it's set to Active. The trigger is on record edit."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Perfect. One common thing to check — is 'Re-evaluate rules after field changes' turned on? If that's off, the rule won't re-trigger after an edit. Let's check that."</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "Oh — that was turned off. I turned it on and tested — it works now!"</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Excellent! That's a common one — the documentation doesn't always highlight it. I'll also send you a quick summary of what we changed so you have it for future reference."</div>
+        </div>
+        <div class="section-lbl">🔑 Key Skills Being Tested</div>
+        <div class="key-chips"><span class="chip c-blue">No-blame approach</span><span class="chip c-green">Product Knowledge</span><span class="chip c-orange">Guided Troubleshooting</span><span class="chip c-purple">Documentation follow-up</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Client says: "I can't import my CSV data into Salesforce. The import fails every time with no useful error message."</div><div class="qscene">📍 Scenario: Data import failure · Classic L1</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Let's get that import working for you. Could you share the CSV file or a sample of it? I'd like to check: column headers match the field API names exactly, there are no special characters or blank rows, and the file is UTF-8 encoded. Also — how many rows does the file have?"</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "It has 5,000 rows. Here's the file."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I can see the 'Phone' column header uses a different spelling than the Salesforce field name — that's likely causing the silent failure. Let me also check if there are any required fields missing in your CSV..."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Data validation skills</span><span class="chip c-green">File format knowledge</span><span class="chip c-orange">Methodical approach</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Client says: "My Salesforce dashboard is showing wrong numbers. Sales this month shows $0 but we definitely have closed deals."</div><div class="qscene">📍 Scenario: Reporting/data display issue</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "That's definitely not right — let's figure out where the mismatch is. A few things to check: First, what date range filter is set on the dashboard? Sometimes it defaults to the wrong period. Second, which user role is the dashboard running as — if it's running as a specific user, it may only show records they own. Third, are the closed deals in 'Closed Won' status specifically?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Report/Dashboard logic</span><span class="chip c-green">Filters & Permissions</span><span class="chip c-orange">Data access rules</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q6</span><span class="qbadge b-tricky">🧩 Tricky</span></div><div style="flex:1"><div class="qtext">Client says: "The issue you helped me fix last week is back again. I had to call again and waste my time. This is very disappointing."</div><div class="qscene">📍 Scenario: Recurring issue · Trust rebuilding</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I sincerely apologize, [Name] — I completely understand your frustration, and you are right to be disappointed. A recurring issue means we didn't fully resolve the root cause last time, and that's on us."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "This time, I want to make sure we fix this permanently. I'm pulling up your previous ticket right now so I can see exactly what was done. I will not only fix the immediate issue — I will also investigate why it came back and make sure it doesn't happen a third time. I'll personally follow up with you in 48 hours to confirm it's stable."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Accountability</span><span class="chip c-green">Root cause focus</span><span class="chip c-purple">Personal follow-up</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANGRY CLIENT -->
+  <div class="sec" id="angry">
+    <p class="sec-label">😤 Handling Angry & Difficult Clients</p>
+    <p class="sec-sub">Emotional intelligence is tested here — stay calm, validate, never argue</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client shouts: "I've been transferred 3 times. Nobody is helping me. I want to speak to your manager RIGHT NOW!"</div><div class="qscene">📍 Scenario: Transfer fatigue · Demand for manager</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Rule:</b> Never immediately transfer. Try to own the issue first. Show you are capable and empathetic before escalating.</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely hear you, [Name], and I am truly sorry about that experience. Being transferred multiple times without a resolution is absolutely unacceptable, and I take full responsibility for making sure that stops right now."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I want to personally own this issue for you — I'm not going to transfer you again. Can you give me just a couple of minutes to understand your issue fully? My goal is to resolve this on this call itself."</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "I've already explained it 3 times. I just want your manager."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely understand. I will connect you with my supervisor. While I do that — may I share what I know about your issue so they can help you immediately without you having to repeat yourself again?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Own the issue first</span><span class="chip c-blue">Never argue about escalation</span><span class="chip c-green">Warm transfer with context</span></div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>"My manager will tell you the same thing." — Dismissive and confrontational</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Immediately saying "Sure, holding on" — shows you can't handle the situation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "Your product is garbage. I'm going to cancel my subscription and move to a competitor. Nothing ever works!"</div><div class="qscene">📍 Scenario: Churn threat · High-emotion moment</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I hear how frustrated you are, and I'm not going to dismiss that. What you're feeling is valid — if something isn't working consistently, that's a real problem for your business."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Before you make that decision, I would genuinely like to understand what's been going wrong. Not to talk you out of anything — but because I believe we can fix this, and I want the chance to try. Can you tell me what specific issues have been happening?"</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "The reporting feature has been broken for weeks and nobody fixed it."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "That's not acceptable, and I agree with you. Let me pull up all your open tickets right now. I want to understand exactly what was reported and why it wasn't resolved. I'm also going to flag this to my team lead to give this priority treatment. Would you be willing to give me 24 hours to come back to you with a clear action plan?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Don't be defensive</span><span class="chip c-green">Retain with action not words</span><span class="chip c-purple">Escalate to retention team</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client uses abusive/rude language towards you during the call. How do you handle it without losing professionalism?</div><div class="qscene">📍 Scenario: Abusive client · Boundary setting</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Key:</b> You can set boundaries professionally. You are not required to accept verbal abuse — but do it calmly and without escalating.</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "[Name], I understand you're very upset, and I genuinely want to help you resolve this. However, I want to make sure we can have a productive conversation — I'll be able to help you much more effectively that way."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I'm fully committed to solving your issue. If you'd like to continue, I'm here. But if the language continues, I may need to end this call and arrange a callback — which I'd prefer not to do. What would you like to do?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Calm boundary setting</span><span class="chip c-green">Stay solution-focused</span><span class="chip c-orange">Give them the choice</span></div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>Argue back or match their energy</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Hang up without warning</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Apologize for their behavior — "I'm sorry you feel that way" is fine but don't let abuse continue</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Client says: "I've been waiting for a resolution for 5 days. Your team just keeps saying 'we're working on it.' I need answers."</div><div class="qscene">📍 Scenario: Ticket stalled · Expectation management</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "You have every right to be frustrated — 5 days without a resolution or a clear update is not the experience we want you to have. I'm going to look at your ticket right now while we're on the call."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I can see this is currently with our engineering team. Here's what I'm going to do: I'll get a specific status update from the engineering team by end of day today and send it to you in writing. I'll also set up a daily update so you're never left without information again. Does that work for you?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Proactive updates</span><span class="chip c-green">Set specific commitments</span><span class="chip c-red">Acknowledge the failure</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-tricky">🧩 Tricky</span></div><div style="flex:1"><div class="qtext">Client says: "I spoke to your colleague yesterday who promised me this would be fixed by noon today. It's 3 PM and nothing is fixed. Where is my fix?"</div><div class="qscene">📍 Scenario: Broken promise by colleague · Ownership moment</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I sincerely apologize that we didn't deliver on what was committed to you — that commitment should have been met or you should have received an update. That's on us."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I'm not going to make any more time commitments unless I'm 100% certain I can keep them. Let me check the current status of your issue right now — I want to give you an accurate picture of where things stand and what the realistic timeline is, not just what sounds good."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Own the colleague's promise</span><span class="chip c-blue">No new false promises</span><span class="chip c-green">Transparent status update</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BILLING & REFUND -->
+  <div class="sec" id="billing">
+    <p class="sec-label">💳 Billing, Refund & Policy Scenarios</p>
+    <p class="sec-sub">The client made a mistake but wants a refund — or disputes a charge. Policy vs empathy balance.</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "Money was deducted from my account due to a mistake I made but I want a full refund. I didn't mean to upgrade." You know it's client's fault. How do you handle this?</div><div class="qscene">📍 Scenario: Client error · Refund demand · Policy conflict</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Balance:</b> Policy must be upheld — but empathy and a goodwill gesture can save the relationship. Never say "it's your fault."</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "I accidentally upgraded my plan. Please refund the extra charge — I didn't want this."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely understand — accidental upgrades can happen, especially with a complex pricing page. Let me look at your account."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I can see the upgrade was processed 3 days ago through your admin portal. Our standard policy is that upgrades are non-refundable once the billing cycle has started, as the additional capacity was made available to you immediately."</div>
+          <div class="script-line"><span class="speaker client-sp">Client:</span> "But I never used any of those extra features! This isn't fair."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I hear you, and I want to find a fair solution. While I'm unable to process a full refund per our policy, here's what I can do: I can downgrade your plan effective immediately so you won't be charged again next cycle, and I'll check if I'm able to apply a credit to your next invoice as a goodwill gesture — let me check what I'm authorized to offer."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Also, I'll make a note of this on your account and flag it to my supervisor. We want to keep you as a valued customer, and I want to make sure you feel heard even when the answer has to be 'no' on the refund."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Never say "your fault"</span><span class="chip c-blue">Explain policy clearly</span><span class="chip c-green">Offer a goodwill alternative</span><span class="chip c-purple">Escalate for exceptions</span></div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>"You clicked the button — it's your mistake, not ours." — Factual but relationship-destroying</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Promise a refund you're not authorized to give</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Argue with the client about who is at fault</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says: "I was charged twice for the same month. I need an immediate refund." But you verify only one charge on your system.</div><div class="qscene">📍 Scenario: Billing dispute · Investigation needed</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely understand your concern — a double charge is serious and I want to investigate this right away. I can see on our end that only one charge of [amount] was processed on [date]. However, I don't want to dismiss your concern at all."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Could you share a screenshot of your bank statement showing the two charges? Sometimes there's a pending authorization that looks like a charge but drops off in 3-5 business days. Once I see the bank statement, I can compare it with our payment records and give you a clear answer within [X hours]."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Investigate before deciding</span><span class="chip c-green">Ask for evidence</span><span class="chip c-orange">Explain pending auth concept</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Client says: "I cancelled my subscription 2 weeks ago but I still got charged. Your cancellation system is broken."</div><div class="qscene">📍 Scenario: Post-cancellation charge · Process failure</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I apologize — if you cancelled and were still charged, that needs to be corrected immediately. Let me check your account... I can see a cancellation request was submitted on [date]. I want to verify if it was fully processed or if there was a gap. If the charge happened after a confirmed cancellation, you are absolutely entitled to a full refund and I will initiate that right now."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">If company error → refund immediately</span><span class="chip c-blue">Verify cancellation record</span><span class="chip c-green">Don't make client fight for what they're owed</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-tricky">🧩 Tricky</span></div><div style="flex:1"><div class="qtext">Client keeps calling back demanding a refund you already denied. They escalate every time. How do you handle persistent pressure?</div><div class="qscene">📍 Scenario: Repeated escalation · Firmness with empathy</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I understand you feel strongly about this, and I respect that. I want to be transparent with you — I've reviewed your case in detail and our position on the refund hasn't changed. I know that's not what you want to hear."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "What I can do is formally escalate your case to our billing review team so you get an official written response. This is the highest level of review available for billing disputes. They will reach out within [X business days]. Would that be helpful?"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Be firm but kind</span><span class="chip c-blue">Offer formal review path</span><span class="chip c-green">Don't keep reopening the same decision</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCALATION -->
+  <div class="sec" id="escalation">
+    <p class="sec-label">🚨 Escalation Scenarios</p>
+    <p class="sec-sub">Know when to own it and when to pass it up — with a warm handoff every time</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">How do you decide when to escalate a ticket vs when to handle it yourself? Walk me through your decision process.</div><div class="qscene">📍 Concept question · Escalation judgment</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>Escalate when:</b> Issue is beyond your access level · Requires engineering/product team · SLA breach risk · Client demands it · Security/data issue</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I try to own as much as possible at L1 — asking for help unnecessarily wastes everyone's time and delays the client. I escalate when: the fix requires backend access I don't have, it's a confirmed product bug, the issue is a potential data breach, the client's SLA is at risk and I need faster resources, or the client specifically and repeatedly requests a higher level. When I do escalate, I always give the next person full context — what was tried, what the client said, and what I've already ruled out — so the client doesn't have to repeat themselves."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Ownership first</span><span class="chip c-green">Context-rich handoff</span><span class="chip c-orange">Protect SLAs</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">You're handling a call and realize this is a critical bug affecting all clients — not just this one. What do you do immediately?</div><div class="qscene">📍 Scenario: Widespread bug discovery · Incident response</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You to client:</span> "I want to let you know — I believe this may be affecting more users than just you. I'm treating this as a high-priority incident. I'm going to flag this to our engineering and incident response team right now. I'll stay on this call with you, and I'll make sure you're one of the first to know when we have a resolution."</div>
+          <div class="script-line"><span class="speaker you-sp">Internal action:</span> Simultaneously: open a P1 ticket · alert your team lead · check status page · document steps to reproduce · note client details for impact assessment.</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">P1 = Immediate escalation</span><span class="chip c-blue">Inform client transparently</span><span class="chip c-purple">Incident response process</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">You escalated a ticket to L2 but L2 is taking too long and the client is following up repeatedly. What do you do?</div><div class="qscene">📍 Scenario: Internal escalation stalling</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I don't just pass a ticket and forget it — the client is still my responsibility until the case is closed. If L2 is taking long, I would: check the ticket status and ping the L2 engineer directly for an update, get a realistic ETA and communicate it to the client proactively before they follow up, and if the SLA is breached, escalate to my team lead. I would never leave the client without an update."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Ticket ownership after escalation</span><span class="chip c-green">Proactive client updates</span><span class="chip c-red">SLA breach = immediate flag</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-tricky">🧩 Tricky</span></div><div style="flex:1"><div class="qtext">Your manager/L2 team tells you "We can't fix this right now — just tell the client." How do you communicate this without losing the client's trust?</div><div class="qscene">📍 Scenario: Delivering bad news from internal team</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I want to be transparent with you — our engineering team has reviewed your issue. It is a known defect and it is on our product roadmap, but I want to be honest: it is not scheduled for an immediate fix."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I know that's not what you wanted to hear. Here's what I can offer in the meantime: a workaround that partially addresses the issue, and I'm going to log your business impact so your voice reaches the product team when they prioritize the fix. I'll also update you when a timeline is confirmed."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Honest communication</span><span class="chip c-green">Offer workaround</span><span class="chip c-purple">Advocate for client internally</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNICATION -->
+  <div class="sec" id="communication">
+    <p class="sec-label">💬 Communication & Soft Skills</p>
+    <p class="sec-sub">How you say things matters as much as what you say</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">How do you explain a complex technical issue (like an API failure) to a non-technical client without confusing them?</div><div class="qscene">📍 Concept · Technical communication</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I first figure out their technical level in the first 30 seconds of the call. If they're non-technical, I use analogies. For example, for an API failure I would say: 'Think of an API like a waiter in a restaurant. Your app (the customer) placed an order, the waiter (API) went to the kitchen (our server), but the kitchen had a problem and didn't complete the order. We're working on fixing the kitchen right now.' I focus on: what it means for them, what I'm doing to fix it, and when they can expect it resolved — not on the technical details."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Gauge audience first</span><span class="chip c-green">Use real analogies</span><span class="chip c-orange">Focus on impact not tech</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client says "I need this fixed ASAP." How do you manage their expectation when you know it will take 3-5 business days?</div><div class="qscene">📍 Expectation management · Timeline communication</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "I completely understand the urgency. I want to give you an honest and accurate timeline rather than a promise I can't keep. Based on the complexity of this issue, our engineering team estimates 3-5 business days for a complete resolution."</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "What I can do right now: Is there a workaround that can unblock you in the meantime? And I'll set up daily updates so you always know where things stand. I'd rather give you a realistic timeline and beat it than give you a short one and miss it."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Honest over optimistic</span><span class="chip c-green">Offer interim workaround</span><span class="chip c-orange">Daily updates commitment</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">You need to put a client on hold during the call. How do you do it professionally?</div><div class="qscene">📍 Call handling · Basic professionalism</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "[Name], I need to check something in our system to give you an accurate answer. May I place you on a brief hold for about 2 minutes? I'll be right back." → [Hold] → "[Name], thank you so much for your patience. Here's what I found..."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Always ask before hold</span><span class="chip c-green">Give a time estimate</span><span class="chip c-orange">Thank them after hold</span></div>
+        <div class="avoid-box">
+          <div class="avoid-item"><span>🚫</span><span>Putting client on hold without asking or warning</span></div>
+          <div class="avoid-item"><span>🚫</span><span>Keeping them on hold for more than 3-5 minutes without checking in</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">After resolving a client's issue, how do you close the call professionally?</div><div class="qscene">📍 Call closing · Client satisfaction</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Perfect Call Closing</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "Great — so just to confirm, [summarize what was done and the outcome]. Is there anything else I can help you with today? [Pause.] Wonderful. I'll send you a quick summary email with the steps we took, so you have it for reference. You may also receive a short survey — your feedback truly helps us improve. Thank you for your patience, [Name], and have a great day!"</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Summarize resolution</span><span class="chip c-green">Confirm nothing else pending</span><span class="chip c-purple">Send follow-up email</span><span class="chip c-orange">Invite feedback</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-tricky">🧩 Tricky</span></div><div style="flex:1"><div class="qtext">A client is explaining their issue but they are going off-topic and wasting time. How do you redirect them politely?</div><div class="qscene">📍 Active listening · Redirection skill</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer Script</div>
+          <div class="script-line"><span class="speaker you-sp">You:</span> "That's really helpful context, [Name] — I appreciate you sharing that. To make sure I focus on what matters most for you right now: if I understand correctly, the main issue is [X]. Is that right? Let me make sure I get that resolved first, and then we can address anything else."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Validate then redirect</span><span class="chip c-green">Summarize to refocus</span><span class="chip c-orange">Never interrupt rudely</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL BASICS -->
+  <div class="sec" id="technical">
+    <p class="sec-label">⚙️ Technical Knowledge Questions</p>
+    <p class="sec-sub">Core technical concepts a TSE at SaaS companies must know</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">What is an API? How would you explain it to a client whose integration has broken?</div><div class="qscene">📍 API basics · Client explanation</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Technical + Client Explanation</div>
+          <div class="script-line"><b>Technical:</b> An API (Application Programming Interface) is a set of rules that allows two software systems to communicate. It defines requests, responses, data formats, and authentication methods.</div>
+          <div class="script-line"><b>To client:</b> "Think of our API like a power socket in a wall. Your application is the appliance — as long as the plug fits the socket (correct format), everything works. When an integration breaks, it usually means something changed on either end — like the plug or socket changed shape. Let me check if there was a recent API update that might have caused this."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">REST vs SOAP basics</span><span class="chip c-green">API key / auth tokens</span><span class="chip c-orange">Status codes (200, 401, 404, 500)</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Client reports "Error 403 Forbidden" when accessing a Salesforce record. What are the possible causes and how do you troubleshoot?</div><div class="qscene">📍 HTTP errors · Permission troubleshooting</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line"><b>403 Forbidden = You are authenticated but not authorized.</b></div>
+          <div class="script-line">Possible causes: User's profile doesn't have access to that object/field · Record sharing rules are restricting access · Organization-wide defaults (OWD) set to Private · Connected app doesn't have required permissions scope · IP restriction is blocking the request.</div>
+          <div class="script-line">Troubleshooting steps: Check user's Profile and Permission Sets · Review sharing rules and OWD settings · Check Connected App OAuth scopes · Review login/access history in Setup.</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">403 = Auth not Access</span><span class="chip c-blue">Profile & Permission Sets</span><span class="chip c-green">Sharing Rules & OWD</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">What is the difference between a bug, a feature request, and a configuration issue? Why does it matter in support?</div><div class="qscene">📍 Ticket classification · Core TSE skill</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line"><b>Bug:</b> Product is not behaving as designed/documented. Must be escalated to engineering. Client is not at fault.</div>
+          <div class="script-line"><b>Configuration Issue:</b> Product is working correctly but the client's setup is wrong. Resolved at L1/L2 support level. Requires guidance and education.</div>
+          <div class="script-line"><b>Feature Request:</b> The product doesn't support what the client wants to do. Logged for product team — not a bug, not fixable immediately.</div>
+          <div class="script-line"><b>Why it matters:</b> Wrong classification wastes everyone's time. A bug sent as feature request = client waits forever. A config issue escalated to engineering = engineering time wasted.</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Bug → Engineering</span><span class="chip c-blue">Config → Support Guide</span><span class="chip c-green">Feature → Product Team</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">What steps do you take when you receive a ticket you have absolutely no knowledge about?</div><div class="qscene">📍 Unknown issue handling · Learning approach</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"First, I acknowledge receipt and set an honest response time expectation with the client. Then: 1) Check internal knowledge base and documentation, 2) Search previous similar tickets to see if this was solved before, 3) Reproduce the issue in a sandbox if possible, 4) Ask a senior colleague or team lead, 5) If still stuck, escalate with all context I've gathered. I never tell a client I don't know — I say 'I'm looking into this and will get back to you by [time]'."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">KB first</span><span class="chip c-green">Past tickets</span><span class="chip c-orange">Reproduce in sandbox</span><span class="chip c-purple">Ask then escalate</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">What is an SLA? How do you ensure you meet SLAs when handling multiple tickets simultaneously?</div><div class="qscene">📍 SLA management · Prioritization</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line"><b>SLA (Service Level Agreement):</b> A committed response/resolution time based on ticket priority. E.g., P1 = 1 hour response, P2 = 4 hours, P3 = 1 business day.</div>
+          <div class="script-line"><b>How I manage:</b> Triage first — identify P1s immediately. Use ticketing tool filters to sort by SLA breach risk. Set personal reminders before SLA expires. Update clients proactively before they follow up. If I'm at risk of breaching, communicate early and ask for help — never let an SLA breach silently.</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">P1 always first</span><span class="chip c-blue">Proactive client updates</span><span class="chip c-green">Ask for help before breach</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEHAVIORAL -->
+  <div class="sec" id="behavioral">
+    <p class="sec-label">🧠 Behavioral Interview Questions</p>
+    <p class="sec-sub">STAR method — Situation, Task, Action, Result</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Tell me about a time you dealt with a very angry or frustrated customer. What did you do?</div><div class="qscene">📍 STAR · Empathy · De-escalation</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="formula-box"><b>STAR Formula:</b> S = Situation · T = Task · A = Action · R = Result</div>
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Sample Answer Structure</div>
+          <div class="script-line"><b>S:</b> "During my internship, a client called very upset because their data export had failed for 3 consecutive days and they had a board presentation the next morning."</div>
+          <div class="script-line"><b>T:</b> "My task was to resolve the data export issue within hours, and also calm the client who was threatening to escalate."</div>
+          <div class="script-line"><b>A:</b> "I first acknowledged their frustration genuinely — not scripted. I then immediately reproduced the issue, found that a scheduled maintenance had changed an API endpoint, and worked with the backend team to run a manual export. I stayed on the call with the client throughout and gave them a 15-minute update."</div>
+          <div class="script-line"><b>R:</b> "The client received their data 2 hours later. They were grateful and ended up submitting a positive survey. I also documented the root cause so future clients wouldn't face the same issue."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Empathy first</span><span class="chip c-green">Ownership through resolution</span><span class="chip c-purple">Prevent recurrence</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hot">🔥 TOP</span></div><div style="flex:1"><div class="qtext">Tell me about a time you didn't know the answer to a client's question. How did you handle it?</div><div class="qscene">📍 Honesty · Learning on the job</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Key Points to Cover</div>
+          <div class="script-line">• You were transparent — said "I'll find out" not "I don't know"</div>
+          <div class="script-line">• You set a clear response timeline with the client</div>
+          <div class="script-line">• You used knowledge base, documentation, or a colleague</div>
+          <div class="script-line">• You came back to the client on time with the answer</div>
+          <div class="script-line">• You documented the answer for future use</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Never fake an answer</span><span class="chip c-green">Commit to a callback time</span><span class="chip c-purple">Build the KB for others</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">How do you prioritize when you have 10 open tickets and 3 clients calling at the same time?</div><div class="qscene">📍 Multitasking · Prioritization</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I triage by urgency and SLA breach risk first — P1 tickets (service down, revenue impacted) always get priority. For the 3 simultaneous calls: I'd take the most urgent one, briefly acknowledge the others are waiting (if there's a queue system), handle one at a time, and ask a colleague to cover if the volume exceeds what I can manage alone. I use the ticketing tool to set priority flags so nothing falls through."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">SLA triage first</span><span class="chip c-blue">One call at a time</span><span class="chip c-green">Ask for team help</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Why do you want to work in Technical Support? Isn't it stressful dealing with angry clients all day?</div><div class="qscene">📍 Motivation · Role fit</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I genuinely enjoy problem-solving and human interaction — technical support combines both. The stress comes from not having answers — I manage that by building my knowledge base continuously and knowing when to ask for help. When I turn a frustrated client into a satisfied one, that's incredibly rewarding. I also see technical support as the best way to deeply understand a product — it's a foundation for roles in CS, product, or engineering over time."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-purple">Passion not just job</span><span class="chip c-blue">Long-term career thinking</span><span class="chip c-green">Stress management</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-common">📌 Common</span></div><div style="flex:1"><div class="qtext">Tell me about a time you went above and beyond for a client.</div><div class="qscene">📍 Ownership · Initiative</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ What to Highlight</div>
+          <div class="script-line">• You did something outside your defined responsibility</div>
+          <div class="script-line">• The impact was meaningful to the client — saved time, prevented a bigger issue</div>
+          <div class="script-line">• You didn't need to be asked — you spotted the need yourself</div>
+          <div class="script-line">• Example angle: "I noticed they had 3 other tickets open that were related — I proactively consolidated and solved all of them in one interaction instead of making them call back 3 more times."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HM ROUND -->
+  <div class="sec" id="hm">
+    <p class="sec-label">👔 Hiring Manager (HM) Round Questions</p>
+    <p class="sec-sub">Deeper, strategic, culture-fit questions — HM is checking for attitude, growth mindset, and client-first thinking</p>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q1</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">What does "excellent customer support" mean to you? How is it different from just "good" support?</div><div class="qscene">📍 Philosophy · Values alignment</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"Good support resolves the problem. Excellent support resolves the problem, prevents it from recurring, communicates proactively, and leaves the client feeling genuinely valued — not just processed. The difference is the human element. Excellent support means the client hangs up thinking 'that person actually cared about my issue' — not just 'they fixed it.' I also think excellent support means contributing to the knowledge base so your teammates can solve the same issue faster next time."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-purple">Problem + Prevention + Empathy</span><span class="chip c-blue">Knowledge sharing</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q2</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">A client is 100% wrong but 100% convinced they are right. Our policy doesn't allow a refund. How do you handle this without damaging the relationship?</div><div class="qscene">📍 Policy vs empathy · HM classic</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I would never argue about who is 'right.' I'd start by fully acknowledging their frustration and genuinely trying to see it from their perspective — sometimes their logic makes sense even if the facts don't support their conclusion. Then I explain the policy clearly, in plain language, without legalese. I always offer something — even if it's not a refund. A credit, a downgrade, a feature, a free session — something that shows we value them. I escalate if needed. And I document the case so the product or policy team gets this feedback."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-red">Never argue right/wrong</span><span class="chip c-blue">Acknowledge fully first</span><span class="chip c-green">Always offer an alternative</span><span class="chip c-purple">Feedback loops to product</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q3</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">Where do you see yourself in 2 years? Do you plan to stay in support or move to another role?</div><div class="qscene">📍 Career growth · Retention · Ambition</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"In 2 years, I see myself as a strong L2 support engineer with deep product expertise, possibly mentoring newer team members. I'm genuinely interested in the technical side — I'd love to grow toward a Solutions Engineer or Customer Success role over time. But right now, support is where I want to master the fundamentals — understanding the product deeply from the client's perspective is invaluable for any future role. I believe support is the foundation, not a stepping stone I'm rushing past."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Ambition without rushing</span><span class="chip c-green">Genuine interest in role</span><span class="chip c-purple">Long-term thinking</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q4</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">How do you handle stress and avoid burnout when dealing with emotionally demanding clients all day?</div><div class="qscene">📍 Resilience · Self-management</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I separate the situation from the person — when a client is angry, they are angry at the situation, not at me. That mental shift helps a lot. I also practice what I call 'emotional reset' between calls — even 30 seconds of a quick break helps. I build resilience by focusing on outcomes — every resolved ticket is a win. And I lean on my team — venting briefly to a colleague after a tough call is healthy. Long term, I stay motivated by tracking wins, not just difficult cases."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Don't take it personally</span><span class="chip c-green">Emotional reset between calls</span><span class="chip c-purple">Team support</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q5</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">Tell me about a time you received negative feedback — from a client or a manager. How did you respond?</div><div class="qscene">📍 Growth mindset · Feedback reception</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Key Points to Hit</div>
+          <div class="script-line">• You received the feedback without being defensive</div>
+          <div class="script-line">• You asked clarifying questions to understand it fully</div>
+          <div class="script-line">• You made a specific change based on the feedback</div>
+          <div class="script-line">• You can show the outcome/improvement after the change</div>
+          <div class="script-line">• End with: "I actually appreciate critical feedback — it's how I've grown fastest."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">No defensiveness</span><span class="chip c-green">Specific behavior change</span><span class="chip c-purple">Growth framing</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q6</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">You have 5 open P2 tickets. Your manager asks you to stop and join a 2-hour training session. What do you do?</div><div class="qscene">📍 Conflict of priorities · Manager relationship</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I'd quickly check the SLA breach risk on my 5 open tickets. If none are near their SLA deadline, I'd ask a colleague to monitor them, send quick acknowledgement updates to each client, and join the training. If one is close to breaching, I'd briefly inform my manager — 'I have a P2 closing on SLA in 45 minutes, can I step out briefly or can someone cover?' I wouldn't skip training without communication, and I wouldn't miss an SLA breach without flagging it."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-blue">Check SLA first</span><span class="chip c-green">Communicate with manager</span><span class="chip c-orange">Ask for coverage not permission to fail</span></div>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qhead" onclick="toggle(this)"><div class="qleft"><span class="qnum">Q7</span><span class="qbadge b-hm">👔 HM</span></div><div style="flex:1"><div class="qtext">If you could redesign one thing about how support teams work to make them better for clients, what would it be?</div><div class="qscene">📍 Thinking beyond your role · Innovation mindset</div></div><span class="qarrow">▾</span></div>
+      <div class="qbody">
+        <div class="script-box">
+          <div class="script-label sl-you">✅ Model Answer</div>
+          <div class="script-line">"I would eliminate ticket transfers as much as possible — every transfer is a trust erosion moment. I'd design support so the first person who picks up the ticket owns it end-to-end, with access to escalate internally while remaining the client's single point of contact. The client should always have one name they can go back to. This also forces engineers to become more T-shaped — broad enough to handle most issues, deep on their specialty."</div>
+        </div>
+        <div class="key-chips"><span class="chip c-purple">Single point of contact</span><span class="chip c-blue">Systemic thinking</span><span class="chip c-green">Client experience first</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button onclick="sendPrompt('Give me a full mock TSE interview call simulation — I am the client, you play the support engineer. Start with a frustrated client who has a login issue.')">🎭 Start Mock Call Interview ↗</button>
+    <button onclick="sendPrompt('What are the top 10 mistakes freshers make in Technical Support Engineer interviews?')">Top TSE interview mistakes ↗</button>
+    <button onclick="sendPrompt('Give me 10 smart questions I should ask the interviewer at the end of a TSE interview at Salesforce or AWS')">Questions to ask interviewer ↗</button>
+    <button onclick="sendPrompt('Give me a STAR method answer template for TSE behavioral questions with 3 complete examples')">STAR answers for TSE ↗</button>
+  </div>
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+function toggle(header) {
+  var body = header.nextElementSibling;
+  var arrow = header.querySelector('.qarrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+</script>

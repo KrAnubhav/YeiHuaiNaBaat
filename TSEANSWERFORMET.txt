@@ -1,0 +1,97 @@
+Salesforce TSE — Java Code Interview Questions and Hiring Manager round quesiton. You have think like you are sitting in interview and question given to you. 💡 How to answer every question: Step 1 — Explain: What does this code do in plain English? Step 2 — Find Issues: What are ALL the bugs, problems, or risks? Step 3 — Fix It: Write the corrected, production-ready version with explanation. Just like you are following this step in your interview.
+## Code Explanation (Line by Line)
+
+```java
+public void processUserSignup(User user) {
+File report = pdfGenerator.generateReport(user); // Attempts to generate a PDF report
+System.out.println("File not found"); // Prints a hardcoded (wrong!) message
+report.delete(); // Tries to delete the file
+}
+```
+
+**What it's supposed to do:** Generate a PDF report for a new user signup, then clean it up after processing.
+
+---
+
+## All Issues Found
+
+| # | Issue | Why It's a Problem |
+|---|-------|--------------------|
+| 1 | **No try-catch** | `generateReport()` can throw exceptions — nothing handles them |
+| 2 | **Hardcoded wrong message** | `"File not found"` prints *unconditionally*, even on success |
+| 3 | **No null check on `report`** | If `generateReport()` returns `null`, `report.delete()` throws a `NullPointerException` |
+| 4 | **`System.out.println` instead of a logger** | Not production-grade; no log levels, no timestamps, no searchability |
+| 5 | **No resource cleanup on failure** | If an exception occurs before `delete()`, the file leaks on disk |
+| 6 | **No null check on `user` input** | If `user` is null, `generateReport(user)` may blow up immediately |
+| 7 | **Silent failure risk** | No re-throw or error propagation — caller has no idea if signup processing failed |
+
+---
+
+## Production-Ready Version
+
+```java
+private static final Logger logger = LoggerFactory.getLogger(UserSignupService.class);
+
+public void processUserSignup(User user) {
+// ✅ Guard clause: validate input before doing any work
+if (user == null) {
+throw new IllegalArgumentException("User must not be null");
+}
+
+File report = null;
+
+try {
+// ✅ Attempt to generate the report
+report = pdfGenerator.generateReport(user);
+
+// ✅ Null check: generateReport() may return null on silent failures
+if (report == null) {
+throw new IllegalStateException(
+"PDF generation returned null for user: " + user.getId()
+);
+}
+
+// ✅ Meaningful log message tied to actual context
+logger.info("PDF report generated successfully for userId={}", user.getId());
+
+// ... process or send the report here ...
+
+} catch (PdfGenerationException e) {
+// ✅ Catch specific checked exception from PDF library
+logger.error("Failed to generate PDF report for userId={}", user.getId(), e);
+throw new SignupProcessingException(
+"Report generation failed for user: " + user.getId(), e // ✅ wrap & rethrow
+);
+
+} catch (Exception e) {
+// ✅ Catch-all safety net — log and rethrow, never swallow
+logger.error("Unexpected error during signup processing for userId={}", user.getId(), e);
+throw new SignupProcessingException("Unexpected error during signup processing", e);
+
+} finally {
+// ✅ Always runs — guarantees file cleanup even if an exception occurred
+if (report != null && report.exists()) {
+boolean deleted = report.delete();
+if (!deleted) {
+// ✅ Warn but don't crash — deletion failure is non-fatal
+logger.warn("Could not delete temp report file: {}", report.getAbsolutePath());
+}
+}
+}
+}
+```
+
+---
+
+## Key Concepts Applied
+
+```
+✅ Specific catch before generic → PdfGenerationException caught before Exception
+✅ Never swallow exceptions → Every catch block rethrows (wrapped)
+✅ finally for resource cleanup → File always deleted, even after exceptions
+✅ Null checks at entry + after call → Guards on user AND on report
+✅ Structured logging with context → userId in every log line for traceability
+✅ Checked vs unchecked awareness → Wraps into a meaningful unchecked exception
+```
+
+**The golden rule:** A `catch` block that only prints and continues is almost always a bug. Either **handle it fully** or **rethrow it** so the caller knows something went wrong.
