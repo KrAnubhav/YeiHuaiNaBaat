@@ -1,0 +1,362 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.header { padding: 1.5rem 0 1rem; }
+.title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.subtitle { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+.stats { display: flex; gap: 12px; margin: 1rem 0; flex-wrap: wrap; }
+.stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 13px; color: var(--color-text-secondary); }
+.stat span { font-weight: 500; color: var(--color-text-primary); }
+.controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+.search-wrap { flex: 1; min-width: 180px; }
+.search-wrap input { width: 100%; padding: 8px 12px; font-size: 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); }
+.filter-btn { padding: 7px 13px; font-size: 12px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; white-space: nowrap; }
+.filter-btn.active { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; font-weight: 500; }
+.section { margin-bottom: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 8px; padding: 10px 0 8px; border-bottom: 0.5px solid var(--color-border-tertiary); cursor: pointer; user-select: none; }
+.section-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+.section-badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+.badge-resume { background: #EAF3DE; color: #3B6D11; }
+.badge-skill { background: #E6F1FB; color: #185FA5; }
+.badge-project { background: #FAEEDA; color: #854F0B; }
+.badge-hr { background: #EEEDFE; color: #534AB7; }
+.section-count { font-size: 12px; color: var(--color-text-tertiary); }
+.chevron { font-size: 14px; color: var(--color-text-tertiary); transition: transform 0.2s; }
+.chevron.open { transform: rotate(180deg); }
+.q-list { padding: 0; list-style: none; }
+.q-list.hidden { display: none; }
+.q-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: flex-start; }
+.q-item:last-child { border-bottom: none; }
+.q-num { font-size: 11px; color: var(--color-text-tertiary); min-width: 22px; padding-top: 2px; }
+.q-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.55; flex: 1; }
+.q-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; margin-top: 2px; }
+.tag-hot { background: #FCEBEB; color: #A32D2D; }
+.tag-design { background: #FAEEDA; color: #854F0B; }
+.tag-resume { background: #EAF3DE; color: #3B6D11; }
+.empty { text-align: center; padding: 2rem; color: var(--color-text-tertiary); font-size: 14px; }
+</style>
+
+<h2 class="sr-only">AI Engineer interview question bank, organized by topic and mapped to your resume</h2>
+
+<div class="header">
+  <div class="title">AI Engineer — Interview Question Bank</div>
+  <div class="subtitle">Sourced from 100+ real interviews (Glassdoor, Reddit, Medium 2024–2026) · Mapped to your resume</div>
+</div>
+
+<div class="stats">
+  <div class="stat">Total <span id="total-count">0</span> questions</div>
+  <div class="stat"><span style="color:#3B6D11">●</span> Resume-mapped questions</div>
+  <div class="stat"><span style="color:#A32D2D">🔥 Frequently asked</span></div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap"><input type="text" id="search" placeholder="Search questions..." oninput="render()"></div>
+  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="filter-btn" onclick="setFilter('resume',this)">From Resume</button>
+  <button class="filter-btn" onclick="setFilter('hot',this)">🔥 Frequently Asked</button>
+  <button class="filter-btn" onclick="setFilter('design',this)">System Design</button>
+</div>
+
+<div id="content"></div>
+
+<script>
+const sections = [
+  {
+    id: "rag",
+    title: "RAG & Vector Databases",
+    badge: "badge-skill",
+    badgeText: "Core Skill",
+    questions: [
+      { text: "Explain end-to-end how RAG works — from document ingestion to final response.", tags: ["hot"] },
+      { text: "What is chunking? What chunking strategies did you use in your FAISS implementation and why?", tags: ["hot","resume"] },
+      { text: "What are embeddings? How does a sentence-transformer convert text into a vector?", tags: ["hot"] },
+      { text: "Cosine similarity vs dot product vs Euclidean — when do you use which for retrieval?", tags: [] },
+      { text: "How did you build the FAISS vector store in your SCB chatbot? Walk me through the indexing pipeline.", tags: ["resume"] },
+      { text: "What is FAISS? How does it differ from ChromaDB and Pinecone?", tags: ["hot","resume"] },
+      { text: "How do you handle a RAG system when the document base is constantly updated?", tags: ["hot"] },
+      { text: "What is a reranker? When and why would you add one after initial FAISS retrieval?", tags: [] },
+      { text: "Explain hybrid retrieval — BM25 + dense embeddings. What does each capture?", tags: [] },
+      { text: "How would you design a multi-tenant RAG system where documents from Client A cannot be accessed by Client B?", tags: ["hot","design"] },
+      { text: "How do you evaluate a RAG pipeline? What metrics do you track?", tags: ["hot","design"] },
+      { text: "What is GraphRAG? How does it differ from standard RAG?", tags: [] },
+      { text: "Your FAISS retrieval returns irrelevant top-3 results. How do you debug and fix it?", tags: ["resume"] },
+      { text: "How did you replace the keyword-matching system with FAISS? What was the measurable improvement?", tags: ["resume"] },
+      { text: "What is ANN (Approximate Nearest Neighbor) search and how does FAISS implement it?", tags: [] },
+    ]
+  },
+  {
+    id: "llm",
+    title: "LLM Fundamentals",
+    badge: "badge-skill",
+    badgeText: "Core Skill",
+    questions: [
+      { text: "How do transformers work? Explain self-attention and multi-head attention.", tags: ["hot"] },
+      { text: "What is the difference between encoder-only, decoder-only, and encoder-decoder architectures? Give examples.", tags: ["hot"] },
+      { text: "What is tokenization? How does BPE work?", tags: [] },
+      { text: "What is context window? What happens when you exceed it and how do you handle long documents?", tags: ["hot"] },
+      { text: "Explain temperature, top-k, and top-p sampling. How do they affect output quality?", tags: ["hot"] },
+      { text: "What is positional encoding and why is it needed?", tags: [] },
+      { text: "What is the difference between pre-training and fine-tuning?", tags: ["hot"] },
+      { text: "What is LoRA and QLoRA? When would you use them instead of full fine-tuning?", tags: [] },
+      { text: "What is RLHF? How does it differ from DPO?", tags: [] },
+      { text: "What is KV cache? How does it help in inference?", tags: [] },
+      { text: "What is hallucination in LLMs? How do you detect and reduce it?", tags: ["hot"] },
+      { text: "How do LLMs generate text? Explain autoregressive decoding.", tags: [] },
+      { text: "What are scaling laws and why do they matter?", tags: [] },
+      { text: "What is Mixture of Experts (MoE)? How does it improve efficiency?", tags: [] },
+      { text: "What is FlashAttention and how does it work?", tags: [] },
+    ]
+  },
+  {
+    id: "nlp",
+    title: "NLP & ML",
+    badge: "badge-skill",
+    badgeText: "Core Skill",
+    questions: [
+      { text: "What is TF-IDF? How did you use it in the Fake News Detection project?", tags: ["hot","resume"] },
+      { text: "What is the difference between supervised and unsupervised learning?", tags: ["hot"] },
+      { text: "Explain intent classification. How does it work in a banking chatbot context?", tags: ["hot","resume"] },
+      { text: "What is BERT? How does it differ from GPT?", tags: ["hot"] },
+      { text: "How does sentence-transformer differ from plain BERT for embedding generation?", tags: [] },
+      { text: "What are precision, recall, and F1 score? Why is F1 important for imbalanced datasets?", tags: ["hot"] },
+      { text: "You benchmarked 5 classifiers and chose Logistic Regression — why? What did GridSearchCV do?", tags: ["resume"] },
+      { text: "What is gradient boosting? How does it differ from Random Forest?", tags: [] },
+      { text: "Explain text preprocessing — tokenization, stemming, stop-word removal. When do you skip steps?", tags: [] },
+      { text: "What is semantic search? How does it differ from keyword search?", tags: ["hot"] },
+      { text: "What is named entity recognition (NER)?", tags: [] },
+      { text: "What is K-Nearest Neighbors? How does it work for text classification?", tags: [] },
+      { text: "Explain the difference between accuracy and precision — when does accuracy mislead you?", tags: ["hot"] },
+      { text: "What is the LIAR benchmark dataset? Why did you choose it for Fake News Detection?", tags: ["resume"] },
+    ]
+  },
+  {
+    id: "prompt",
+    title: "Prompt Engineering",
+    badge: "badge-skill",
+    badgeText: "Core Skill",
+    questions: [
+      { text: "What is prompt engineering? What techniques do you use to improve LLM output?", tags: ["hot"] },
+      { text: "Explain zero-shot, one-shot, and few-shot prompting. When do you use each?", tags: ["hot"] },
+      { text: "What is chain-of-thought (CoT) prompting? When does it help?", tags: [] },
+      { text: "What is the difference between system prompt, user prompt, and assistant prompt?", tags: ["hot"] },
+      { text: "How do you prevent prompt injection attacks in a production LLM app?", tags: [] },
+      { text: "How do you reduce hallucination through prompting techniques?", tags: ["hot"] },
+      { text: "What is ReAct prompting? How does it differ from basic CoT?", tags: [] },
+      { text: "How do you version and manage prompts across environments?", tags: [] },
+    ]
+  },
+  {
+    id: "langchain",
+    title: "LangChain / LlamaIndex / Frameworks",
+    badge: "badge-skill",
+    badgeText: "Framework",
+    questions: [
+      { text: "What is LangChain? What problem does it solve?", tags: ["hot"] },
+      { text: "What is LangChain4j? How did you use it in your SCB work?", tags: ["resume"] },
+      { text: "Explain chains vs agents in LangChain. When do you use an agent over a chain?", tags: ["hot"] },
+      { text: "What is ReAct agent? How does it decide which tool to call?", tags: [] },
+      { text: "What is LangGraph? How does it differ from LangChain for agentic workflows?", tags: [] },
+      { text: "How does memory work in LangChain? Explain ConversationBufferMemory vs summary memory.", tags: ["hot"] },
+      { text: "What is the difference between LangChain and LlamaIndex? When would you pick one over the other?", tags: [] },
+      { text: "How would you build a multi-agent system using LangGraph? What are agent failure modes?", tags: ["design"] },
+      { text: "What is tool calling (function calling) in LLM APIs? How do you implement it?", tags: [] },
+      { text: "How do you debug a LangChain RAG pipeline that is returning wrong answers?", tags: [] },
+    ]
+  },
+  {
+    id: "project_fakenews",
+    title: "Project: Fake News Detection Engine",
+    badge: "badge-project",
+    badgeText: "Project Deep-Dive",
+    questions: [
+      { text: "Walk me through your Fake News Detection project end-to-end.", tags: ["hot","resume"] },
+      { text: "Why did you use FAISS alongside a traditional ML classifier instead of just one approach?", tags: ["resume"] },
+      { text: "What is a semantic credibility layer? How did you implement it?", tags: ["resume"] },
+      { text: "Why Logistic Regression won over other 4 classifiers? What were the others and what went wrong?", tags: ["resume"] },
+      { text: "How did GridSearchCV help? What hyperparameters did you tune?", tags: ["resume"] },
+      { text: "Explain the FastAPI microservice design. How did you expose the inference pipeline?", tags: ["resume"] },
+      { text: "What is Redis TTL caching? Why did you cache at the article hash level?", tags: ["resume"] },
+      { text: "How did Docker Compose help here? What services did the compose file include?", tags: ["resume"] },
+      { text: "How would you improve this project — better accuracy, lower latency, production-scale?", tags: ["resume"] },
+    ]
+  },
+  {
+    id: "project_avia",
+    title: "Project: Avia Resume Matcher",
+    badge: "badge-project",
+    badgeText: "Project Deep-Dive",
+    questions: [
+      { text: "How does Avia parse and score a resume against a JD? Walk me through the pipeline.", tags: ["hot","resume"] },
+      { text: "What is LiteLLM? Why did you use it instead of directly calling OpenAI/Claude API?", tags: ["resume"] },
+      { text: "What is the guest-first architecture with Supabase? How did you handle anonymous session data?", tags: ["resume"] },
+      { text: "How does server-side PDF generation with Playwright work? Why not client-side?", tags: ["resume"] },
+      { text: "How did you achieve 20%+ improvement in keyword match score? How did you measure it?", tags: ["resume"] },
+      { text: "How does your ATS parsing simulator work under the hood?", tags: ["resume"] },
+      { text: "How would you scale Avia to 10,000 concurrent users on Render/Vercel?", tags: ["design","resume"] },
+    ]
+  },
+  {
+    id: "scb_exp",
+    title: "SCB Work Experience — NLP Chatbot",
+    badge: "badge-resume",
+    badgeText: "Work Exp",
+    questions: [
+      { text: "Explain the intent classification system you built. How did it work technically?", tags: ["hot","resume"] },
+      { text: "What does 'expanding English/Chinese intent corpus' mean? How did you do it?", tags: ["resume"] },
+      { text: "What is a rule-based fallback layer? Walk me through your multi-tier fallback design.", tags: ["resume"] },
+      { text: "How did you reduce unhandled query rate by 22%? What was the before/after?", tags: ["resume"] },
+      { text: "What is HikariCP? What is connection pool starvation and how did you diagnose it?", tags: ["hot","resume"] },
+      { text: "Walk me through how you tuned HikariCP — what parameters did you change?", tags: ["resume"] },
+      { text: "How did you achieve 40% reduction in wallet registration API response time?", tags: ["resume"] },
+      { text: "What does 30% query resolution time reduction mean operationally?", tags: ["resume"] },
+      { text: "How did you handle English/Chinese parity issues in the chatbot?", tags: ["resume"] },
+      { text: "What was your sprint process? How did you reduce sprint bug backlog by 20%?", tags: ["resume"] },
+    ]
+  },
+  {
+    id: "java_backend",
+    title: "Java Backend & Spring Boot",
+    badge: "badge-skill",
+    badgeText: "Backend",
+    questions: [
+      { text: "Explain Spring Boot auto-configuration. How does it work?", tags: ["hot"] },
+      { text: "What is Spring AI? How does it integrate LLMs with Spring Boot?", tags: ["resume"] },
+      { text: "Explain JWT and OAuth 2.0. How did you use them in the banking context?", tags: ["hot","resume"] },
+      { text: "What is Spring Security? How does authentication and authorization work?", tags: ["hot"] },
+      { text: "What is Kafka? What is a producer-consumer pattern?", tags: [] },
+      { text: "How does JPA/Hibernate work? What is the N+1 problem?", tags: ["hot"] },
+      { text: "What are microservices? What challenges do they introduce?", tags: [] },
+      { text: "How does Redis caching work? How did you use it in the Fake News project?", tags: ["resume"] },
+      { text: "How do you handle concurrent requests in Spring Boot?", tags: [] },
+      { text: "What is HikariCP and why is connection pooling important?", tags: ["hot","resume"] },
+      { text: "Explain REST API design best practices.", tags: [] },
+    ]
+  },
+  {
+    id: "python_fastapi",
+    title: "Python & FastAPI",
+    badge: "badge-skill",
+    badgeText: "Backend",
+    questions: [
+      { text: "What is FastAPI? How is it different from Flask/Django?", tags: ["hot"] },
+      { text: "What are async/await in Python? Why does FastAPI use them?", tags: ["hot"] },
+      { text: "How did you structure your FastAPI microservice in the Fake News project?", tags: ["resume"] },
+      { text: "What is Pydantic and how does FastAPI use it for request validation?", tags: [] },
+      { text: "How do you handle API versioning in FastAPI?", tags: [] },
+      { text: "Explain Python decorators — how does @app.get() work?", tags: [] },
+      { text: "What are Python generators? How are they useful in data processing pipelines?", tags: [] },
+    ]
+  },
+  {
+    id: "system_design",
+    title: "System Design — AI Systems",
+    badge: "badge-skill",
+    badgeText: "System Design",
+    questions: [
+      { text: "Design a RAG-based customer support chatbot for a bank. Cover ingestion, retrieval, and evaluation.", tags: ["hot","design","resume"] },
+      { text: "How would you design a multi-tenant RAG system where no client can access another's data?", tags: ["hot","design"] },
+      { text: "Design a production LLM inference system — how do you handle latency, cost, and failure?", tags: ["design"] },
+      { text: "How would you scale the Avia Resume Matcher to handle 10K concurrent users?", tags: ["design","resume"] },
+      { text: "How do you handle a very large RAG (100K+ documents)? What indexing strategy do you use?", tags: ["hot","design"] },
+      { text: "Design an intent classification system for a banking chatbot with 20+ intents.", tags: ["design","resume"] },
+      { text: "What is CAP theorem? How does it apply to your chatbot's backend?", tags: [] },
+      { text: "How do you implement rate limiting for an LLM API gateway?", tags: ["design"] },
+      { text: "How do you monitor and observe a production LLM system? What metrics matter?", tags: ["design"] },
+      { text: "RAG vs fine-tuning — when do you use each? Explain trade-offs.", tags: ["hot"] },
+    ]
+  },
+  {
+    id: "hr_behavioral",
+    title: "HR & Behavioral",
+    badge: "badge-hr",
+    badgeText: "HR Round",
+    questions: [
+      { text: "Tell me about yourself.", tags: ["hot"] },
+      { text: "Why are you switching from Java backend to AI/Gen AI?", tags: ["hot","resume"] },
+      { text: "Why do you want to leave Capgemini/SCB?", tags: ["hot"] },
+      { text: "What was your most impactful work at SCB? (STAR format)", tags: ["hot","resume"] },
+      { text: "Describe a time you solved a production issue under pressure. (STAR format)", tags: ["hot"] },
+      { text: "How do you stay updated with the fast-moving AI space?", tags: ["hot"] },
+      { text: "What is your expected CTC? (Targeting 14+ LPA)", tags: [] },
+      { text: "What is your notice period and can you negotiate it?", tags: [] },
+      { text: "Where do you see yourself in 2-3 years?", tags: [] },
+      { text: "Describe a time you disagreed with a technical decision and how you handled it.", tags: [] },
+      { text: "What are your strengths and weaknesses?", tags: [] },
+      { text: "Why should we hire you over someone with a pure AI/ML degree?", tags: ["hot","resume"] },
+    ]
+  }
+];
+
+let activeFilter = 'all';
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+const sectionStates = {};
+sections.forEach(s => sectionStates[s.id] = true);
+
+function toggleSection(id) {
+  sectionStates[id] = !sectionStates[id];
+  render();
+}
+
+function render() {
+  const query = document.getElementById('search').value.toLowerCase();
+  const content = document.getElementById('content');
+  let totalVisible = 0;
+  let html = '';
+
+  sections.forEach(s => {
+    let filtered = s.questions.filter(q => {
+      const matchesSearch = !query || q.text.toLowerCase().includes(query);
+      const matchesFilter = activeFilter === 'all' ||
+        (activeFilter === 'hot' && q.tags.includes('hot')) ||
+        (activeFilter === 'resume' && q.tags.includes('resume')) ||
+        (activeFilter === 'design' && q.tags.includes('design'));
+      return matchesSearch && matchesFilter;
+    });
+
+    if (filtered.length === 0) return;
+    totalVisible += filtered.length;
+    const isOpen = sectionStates[s.id];
+
+    html += `<div class="section">
+      <div class="section-header" onclick="toggleSection('${s.id}')">
+        <span class="section-badge ${s.badge}">${s.badgeText}</span>
+        <span class="section-title">${s.title}</span>
+        <span class="section-count">${filtered.length} questions</span>
+        <span class="chevron ${isOpen ? 'open' : ''}">&#8964;</span>
+      </div>
+      <ul class="q-list ${isOpen ? '' : 'hidden'}">`;
+
+    filtered.forEach((q, i) => {
+      const tagHtml = [
+        q.tags.includes('hot') ? '<span class="q-tag tag-hot">🔥 frequent</span>' : '',
+        q.tags.includes('resume') ? '<span class="q-tag tag-resume">resume-mapped</span>' : '',
+        q.tags.includes('design') ? '<span class="q-tag tag-design">system design</span>' : ''
+      ].filter(Boolean).join(' ');
+
+      html += `<li class="q-item">
+        <span class="q-num">${i+1}.</span>
+        <div style="flex:1">
+          <div class="q-text">${q.text}</div>
+          ${tagHtml ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;">${tagHtml}</div>` : ''}
+        </div>
+      </li>`;
+    });
+
+    html += `</ul></div>`;
+  });
+
+  if (!html) html = '<div class="empty">No questions match your search.</div>';
+  content.innerHTML = html;
+  document.getElementById('total-count').textContent = totalVisible;
+}
+
+render();
+</script>
