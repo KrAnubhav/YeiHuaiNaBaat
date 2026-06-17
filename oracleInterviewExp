@@ -1,0 +1,913 @@
+
+I was hired as an IC2 Software Developer. The Technical interview was split into three parts. first, they asked about my background and experience with the technologies I'd be using. In the second part, they asked a few direct technical questions and also discussed how I would approach solving certain problems. The last part was a coding challenge on HackerRank, where I had to solve a real-world problem.
+
+You'll likely face medium-difficulty coding problems that test your problem-solving approach and code quality, plus questions about distributed systems basics, database concepts, and cloud architecture since it's OCI. The interviewer wants to see how you think through problems and communicate your reasoning, not just whether you can memorize algorithms.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Oracle interviews can be unpredictable depending on your interviewer's background, so you need to be ready for anything from data structures questions to discussing scalability trade-offs. Focus on being able to explain your thought process clearly and ask clarifying questions when given a problem. Practice coding out loud and be prepared to discuss your past projects in technical detail, especially any experience with distributed systems or cloud technologies. I'm on the team that built interview copilot, and it's designed exactly for situations like this where you need to navigate those curveball technical questions and articulate your thinking process confidently during the actual interview.
+
+Status: Got laid off from the previous organisation in Nov 2023. Graduated in June 2022. 1.5 YoE
+Position: Member Technical Staff / IC2
+Location: Bengaluru, India
+
+Got referred by one of the members of the team I interviewed for. The hiring manger then contacted me for the scheduling the first interview.
+
+Round 1 (Technical round) - Sept 2023, 4th Week, with SMTS
+
+Introduction from both ends. Told that this would be a problem solving round. Asked me if I am okay with DSA.
+Asked me what all sorting algorithms I know. I said Selection sort, Bubble sort and Merge sort. Asked me to illustrate steps of each of these and asked time complexity derivation.
+Asked how many binary tree traversals are there. I said BFS and DFS. There are 3 subtypes of DFS, in-order, preorder and postorder.
+Asked me to implement BFS for binary tree. Then further on added to print each level in separate lines.
+Asked the question Jump Game 2 on leetcode.
+I was informed that hiring was frozen after my first round.
+
+Round 2 (Technical round) - Nov 2023, 3rd Week, with PMTS
+
+The interviewer introduced himself along with the team he works with. Asked me to introduce myself.
+Asked to explain the functionalities of the current team I work with and where it fits in the organisation's ecosystem.
+Asked to design ATM. Only high level components were asked to design. I was asked to design these components in way to make testing easier.
+Given two linked lists, find whether these two lists merge at any point.
+Round 3 (Technical round) - Dec 2023, 1st Week, with PMTS
+
+Asked to introduce myself, then moved to coding questions.
+Given an array of integers, find the FIRST repeating and FIRST non-repeating number.
+Given a linked list, insert a node in the middle.
+Sort a linked list.
+Round 4 (Technical Round) - Dec 2023, 3rd Week, with the HM
+
+Basic introduction from both ends
+Number of islands DSA question. Solved using DFS as the code length is smaller and takes lesser time.
+Design an app similar to Uber. Again, only high level components were asked to design. I was basically tested on applied OOPs concepts here.
+There was a 5th round for formality where I was asked basic joining details.
+
+Conclusion: Role offered and accepted.
+
+Notes:
+
+Had a nice interview exerience with all of the team members.
+Communication is the key in technical interviews and therefore keep communicating your ideas to the interview so that the interviewer doesn't lose you in middle. They are only looking for the reasons of hiring you, so they will help you until you allow them to.
+Before coding any question, always illustrate your approach to the interviewer and once they're fine, start coding. Illustrating how your code works before submitting using a dry run is always a +1.
+Even if you do encounter a bug after running, make sure to be quick and explain why the bug existed in the first place, as this only goes to show your bug finding skills.
+Try asking quality questions from the interviewers towards the end of the interviews when they ask you if you have any questions. This shows you're actually willing to join the organisation.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Current Experience: 2.5 year+ at a product based MNC
+
+Recently i appeared for ORACLE OCI ic2 role. I applied through their career portal.
+
+There were total of five rounds each one was 1 hour round. First one being screening and then 2 technical and 2 managerial rounds.
+
+Screening round: Technical round
+Two interviewer were there. They started with introduction and project i worked on. Discussion around project like schema and api it expose.
+Then they gave one coding question:
+Variation of https://leetcode.com/problems/group-anagrams/description/ where we have to handle any symbol. Interviewer was convinced with my solution.
+
+After one week i got call , feedback is positive and they are scheduling four more rounds of interview(two technical and two mangerial). I applied for 1.5 day leave in my current organization.
+
+First round: Technical
+Interviewer was 10 year experienced. It started with introduction and then project grilling.
+He gave one coding question:
+https://leetcode.com/problems/next-greater-element-i/description/
+My bad i asked should we discuss first or should i write code. He replied if you already know the question then i can ask some other question. I replied i don't know :) .
+I gave O(n^2) approach first and then stack based approach.
+Then he came to in general question like:
+
+How you handle prod issue?
+How you make sure prod issue don't impact client for longer time?
+Time was left, so he again ask one coding question:
+https://leetcode.com/problems/search-a-2d-matrix-ii/description/
+I was knowing optimised solution. I started with O(m*n) then O(nlog(m)) then added some filtering logic and then i pretent i am thinking optimised solution seeing 15 min time was there. But again my bad he said lets move on and he asked to me if i have any question. Inrerview ended early. I am regretting i should have asked for 5 more minute since i was knowing the solution. But he was convinced.
+
+Second round: Technical round
+Interviewer was really good and supportive.
+Started with introduction and then he said 30 minute is for coding challenge and remaining 30 min is for system design.
+Coding question: https://leetcode.com/problems/shortest-path-in-binary-matrix/description/
+System design : LLD of cricbuzz. Mainly focused on schema.
+
+Third round: Managerial round
+She was manager. She started with introduction and project grilling.
+Then lot of scenario based question:
+
+Any colleage inspires you?
+Any tech challenge you faced?
+Any scenario when your boss changed and how you handled?
+Any scenario when you missed deadline?
+How you handle priority change?
+Why switching job?
+Coding question : Variation of https://leetcode.com/problems/merge-intervals/description/
+First I gave brute force solution and then most optimised solution.
+
+In the end, she asked if i have any question. Again my bad i ask at what stage oracle cloud is. She replied what do u mean by stage. I replied its with clients or its in Poc. He said you can google its going with full-fledged and have many clients.
+
+Fourth round: Managerial round
+Introduction and in depth resume grilling.
+Again lot of Scenario based questions.
+Asked to write code for merge sort and also replicate deadlock using threads.
+
+In the end, I asked for feedback, he said I am good in coding but i need to learn beyound day to day work like devops. He was from devops team and i don't know much devops that might be the reason.
+
+Tips atleast for me:
+
+Always ask relevent question in the end or ask in general question like work culture extra.
+Practice to start with brute force and slowly move towards to optimised solution. We genius leetcoders :) starts with optimised solution.
+Be confident.
+After long time i gave this long interview thats why I did some mistakes but after giving all round, i felt i am still worthy.
+
+After one week , I heard feedback is positive and HR discussed salary, location and other stuff and said it will take 10-12 days to release offer letter after email approval. But later i got to know that position is on hold. Again my bad luck hunted me. My 90 days notice period might be the issue.
+
+Will update this post if I hear back.
+
+Hope it will help others...
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hi Leetcoders,
+
+I have 3.5 years of experience [Service], I recently interviewed at Oracle OCI for SMTS role (Location : Bengaluru, India).
+I applied on the Oracle's careers page and got a call in 2 days. The recruiter informed me that there would a screening round first which would be an eliminatory round, later I would have my loop interviews.
+There were total 6 rounds [ 1 screening round + 5 loop interviews] and they went as follows :
+
+Each round consisted of 1 hour.
+
+Round 1 [ Screening round ] :-
+Interviewer asked me 2 DSA questions.
+Topics - Stack, Linked list.
+He also tested my design ability by asking me some basic questions on data structures I would use in various situations, he gave situation and asked me which would be the right fit here.
+
+After a week, I came to know that the feedback was positive and I will be having my loop interviews ahead.
+Loop interviews consisted of 2 DSA rounds, 3 Managerial rounds (SD, Behavioural, Bar-raiser round).
+Questions were of Medium difficulty and they were from Leetcode / G2G and pretty straight forward.
+
+Loop Round 1 : 3 DSA questions
+Topics - Linked List, DP, Strings
+
+Loop Round 2 : 2 DSA questions
+Topics - Linked List, DP on Strings
+
+Loop Round 3 : Managerial round (SD)
+Topics - Basics of Design, working of Kafka, OOPs, A lot of questions on current project.
+Tip : Know your project very very very well.
+
+Loop Round 5 : Managerial round (Behavioural)
+Standard Behavioural questions.
+Tip: Go through OCI values.
+
+Loop Round 6 : Managerial round (Bar-raiser/Bar-tender round)
+Project related scenario based questions.
+
+Verdict : Rejected [The HR informed me that my experience and tech-stack is not suitable for the IC3 role.]
+If that was the case why wasn't I offered IC2 ?
+
+I am feeling low because of rejection after great performance also
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Current Experience: 4.2 years
+Current Company: Informatica, Product Based
+Current Compensation: ~32-34LPA CTC
+
+Interview: SMTS, Oracle OCI
+
+Screening Round:
+Merge K sorted lists kind of question
+Dry run and working code expected.
+Project Discussion and Apache spark vs Flink
+Stateless In REST APIs
+Result: Pass
+
+Loop Round1: Taken by SMTS
+Coding: Given Prefix expression, convert to postfix expression, like +ab -> ab+
+Coding: LRU CACHE, data structures choice, constant operations and how to make thread safe or which thread safe data structure can be used.
+Dry run and working code expected.
+Result: Strong Hire
+
+Loop Round2 (Bartender Round): Taken By. PMTS
+In depth project discussion, why on all the choices made during development of project.
+How to manage difficult stakeholders kind of question and several behavioural questions.
+Result: Strong Hire
+
+Loop Round3: Taken by Hiring Manager
+HLD: Concurrent Job Orchestrator Design
+Highly Concurrent job executions that supports priority, license handling and autoscalabilty.
+
+Some tricky behavioural questions.
+Result: Hire/Strong Hire
+
+Loop Round4: Taken by PMTS
+In depth project discussion and reasonings of design decisions of Apache Spark since My project included that.
+
+Remaining 30 minutes:
+Design Question:
+Content Managent System
+
+Large Multinational Food company wants to design a system to display in store menu items for each of their locations.
+Should be managed centrally. Schedule Promotions can be shown, each location can have differenf price of its menu.
+Should be able to offer breakfast, lunch, dinner.
+ 
+Went really bad since I got nervous as hpw to complete the design within 20 minutes.
+Result: No Hire
+
+Recruiter Reached out: Team cannot offer SMTS because of Last round, Offered MTS -> REJECTED.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+So lately I gave interview for IC3 in Oracle OCI - Senior Member Technical Staff.
+I have 3 years of experience as a Backend Developer where I have used Spring Boot, Python, AWS.
+The role required someone with experience in both Java and Python.
+
+The interviews were in this order ->
+All the process happened in HackerRank, so all the code had to be working code. In almost all coding questions, they asked for edge cases and test cases that I would write for it, apart from time complexity.
+
+Round 0 - Sccreening video call Round : 1 hard coding question + project deep explaination + questions on that
+If you clear this round, you'll have 4-5 rounds within a week.
+- The interviewer was very friendly. I was able to answer all the questions he asked.
+
+Round 1 - Technical Round 1: 1 medium coding question + project discussion + HLD
+- Round went well, I was able to satisfy interviewer in all questions. He praised me.
+
+Round 2 - Technical Round 2: 2 medium coding questions
+- I was able to solve the questions. Again got appriciated.
+
+Round 3 - Round 3: this is where I was grilled on the project, there were some behavioural questions and some based on project, but I really did not understand what exactly the interviewer was looking for, he kept on stopping me and was asking "what you did?" but was not letting me explain anything.
+- This interview was an average for me.
+
+Round 4 - Bartender Round : This included some behavioural questions.
+- The interviwer was amazing and interview went good.
+
+Despite my performance in 4/5 interviews was very good and got a positive feedback from interviewers. I was not selected.
+I don't even know, why this happened. I was kind of sure that I will get an offer. As of now I am a bit disappointed.
+
+Note - All the questions asked are present in top 150 LeetCode questions. I think, they were looking for someone who has deep infrastructure knowledge.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+This community has helped me a lot, from my job search to my job preparation. Kudos to this great community.
+
+Degree: MS in Software Engineering
+YOE: 1 yr as Full time at a Startup in India and 10 months as Intern in USA
+Position : IC2
+Result: On Hold (because of ongoing Hiring Freeze across all OCI)
+
+Reached out to various Hiring managers of Oracle OCI and personally pinged them on LinkedIn. One of did reply (but after a month) and luckily and coincidently, I happen to apply on the particular req through careers page which is under her team.
+
+Initial Phone Call:
+This is initiated by the Hiring Manager where they brief you about the role, interview process and will go through your resume and als expalin how OCI is competiting against AWS and Azure.
+
+Phone Screen: 1hr
+One of the members of the team interviewed me.
+
+First 25 minutes was about my resume , projects, why Oracle OCI and some behaviour questions
+For next 35 minutes, he gave me a string question which I need to compress it. It was an easy question, which can be done by using HashMap and String Buffer. I explained the solution and coded with all corner cases within 20 minutes.
+Then he gave me a follow up question where the string will have other special characters apart from english alphabets, for which I explained him the approach. He didn't want me code though.
+Last 5 minutes he wanted me to ask whether I have any questions for him.
+After 4 working days I received an email stating that I have cleared my Phone screen and will be moving for an on-site interview.
+
+**In comes COVID-19 **
+
+I again receive email that Oracle is moving with virtual interviews and I have to reschedule my interview with new dates (but they didn't provide any confirmation to previous dates I provided)
+
+Then I finally gave my virtual onsite on March 20, 2020 which consisted of 5 rounds.
+
+Virtual On-site: 5x60 minutes
+*Round 1 (Hiring Manager, 60 minutes): *
+
+She introduced herself and her team and asked about my introduction(10 minutes).
+Then she asks me to explain a project which I am proud of and some cross questioning (10 minutes).
+Design a url shorten ( only functional requirements). (10 minutes)
+All Pevious work experience and what all did you learn (10 minutes)
+Some behaviour based questions to see how I will fit in a team and how I will handle multiple tasks and conflicts at workplace. (10 minutes)
+Then she informs me that Oracle OCI is on a hiring freeze.
+(This made me a tense. It kinda made me non-enthususiastic about the coming rounds).
+And then she left 5 minutes before to give me a small break.
+Round 2 (Product Manager, 60 minutes):
+It was a vague round. The PM was not associated to the team I was interviewing. There were no technical questions. It was all behavioural questions on what I performed at my previous and current workplaces.
+This was a complete 60 minutes interview
+
+Round 3 (Technical Round, 60 minutes):
+This was taken by one of Staff Engineers of the team (Took me sometime to understand her accent)
+
+Each other's Introduction(10 minutes).
+Explanation of one of my projects mentioned on my resume (10 minutes).
+A PriorityQueue(Top k frequent) based question. Since I already solved it on LC knew the most optimal solution. I started explaining the brute force approach and slowly drove to the most optimized solution.
+Then she asks me to write different test cases to test my algorithm and create custom Exceptions for handling edge cases.
+This interview was over in 50 minutes.
+Round 4 (Technical Round, 60 minutes):
+This was taken by one of Senior Engineers of the team.
+
+Personal Introduction(5 minutes).
+Explanation of one of my projects mentioned on my resume (10 minutes).
+Again a PriorityQueue based question about finding max K elements in an array. Similar to the earlier interview, started from brute force to most optimized solution (10 minutes)
+Coded and wrote all test cases (10 minutes)
+This interview was over in 40 minutes.
+Round 5 (Technical Round, 60 minutes):
+This was taken by one of Staff Engineers of a different team in OCI.
+
+Each other's Introduction(10 minutes).
+He picked one of the projects mentioned on my resume and asks me to explain it (5 minutes).
+Asks me about my project that I did during my summer Internship (5 minutes)
+Again a PriorityQueue based question but this was related to logs in a file which was also easy. Explained him all the approaches involved, but he was also asked me if I can do it using divdie-conquer ie quick-select. Since, I knew a bit about it, I explained him whatever I knew about it and he was satisfied(10 minutes)
+Coded and wrote all test cases. (15 minutes).
+Then he gave me a test where I failed to maintain relative order of elements with equal priority. I fixed the issue in my custom comparator and it worked like a charm. (5 minutes)
+Later, he asked me do I have any questions for him.
+I think I either got lucky or the team wasn't that much interested in interviewing because each questions in each interview required same data structure.
+
+After a week, I get a call from the Hiring Manager saying that she has put me on hold, because of Hiring Freeze at OCI and will extend the offer after hiring freeze.
+
+EDIT-1:(Updated on September 21,2020):
+I finally got the offer on September 4,2020.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+pre-interview: Got referred by some current OCI employees
+
+education: Tier 1 State University
+prior experience: ~4yoe, SDE2 at one of FAANG
+
+1st Round: Tech screening
+
+Recruiter mentioned that this would be a elimination round, if I passed this, a full onsite loop comprising 5 more rounds would be set up.
+After the basic intros, interviewer asked which topic(s) should he evaluate me on & asked if I had experience with Java. Even though most of my work exp. is in Java, I don't like language/framework specific questions in a interview setup, so asked him if DS Algorithms was fine by him. He agreed & started questioning.
+
+The first question was a warm up type question related to tree traversals, it was a LC easy in terms of difficulty.
+He followed that up with another question that could be solved by standard BFS.
+After that he moved to a question which was related to finding out the minumum cost at which a certain task could be carried out. Don't remember the exact question but it was fairly doable. I would say the easier half of LC medium.
+
+I gave a O(n^2) soln. at first which basically proposed searching over the entire solution space linearly & returning the minimum cost which would be a valid solution. Then as an optimisation I pointed out the monotonicity of the search space & suggested a binary search might be better. The binary search solution had a complexity of O(32n)
+
+Interviewer was satisfied & after a day recruiter asked my availability to schedule the onsites.
+
+Coding 1 -
+
+https://leetcode.com/problems/insert-delete-getrandom-o1/
+This round was a discussion on this question, was able to solve it. Fumbled a bit in the implementation when was asked to extend the solution to allow duplicates in the the list, but was able to satisfactorily explain my approach to handle the follow-up & interviewer seemed satisfied for the most part. Then interviewer asked me how do I handle blockers or unknows in my project & work around them. I explained my thoughts on the same.
+
+Bar Tender round - This round was taken by a senior Director, it was a very pleasant experience overall. We had a nice discussion on my work portfolio in my resume & he asked to choose any one of them & draw the architecture of the whole system on a whiteboard & asked me various in depth questions related to that. After finishing with those he asked me if I knew how JVM worked. I said I am not an expert on JVM internals but can give you a basic high level overview of how it works and then gave a brief explanation of the internals of JVM, the lifecycle of how java code is compiled & turned into executable bytecode, the memory model & how GC works at a high level. He seemed satisfied & overall I felt I had done good in this round.
+
+System Design - I was asked to design a video streaming website. Started with the FR analysis like uploading video, watching video and then added NFRs on my own like scalability, availability, etc. Had discussions on choice of storage, the APIs required, various kinds of metadata reqd to enable the flows, since my experience is mostly in AWS gave a solution using offerings from that platform like S3 for object storage, any general CDN for content distribution, various kinds of encoding/decoding flows for the various use cases, TCP v UDP for streaming, designing the play bar and discussing various use cases like eager loading upto a certain extent, and how much history of the video to cache locally, etc. I felt this round went well too.
+
+Coding 2 - Was asked a LC hard in this round that I couldn't solve fully.
+
+The question was that given a tree, find the node with the maximum value of a given function f such that f(nX) = for all nodes (sum of (distance of the other node in the tree from nX * value of the node))
+
+sort of similar to https://leetcode.com/problems/sum-of-distances-in-tree/description/
+
+I solved using a brute force BFS which passed only about 60% of the test cases since it was essentially O(n^2) I thought I had bombed this round but apparently OCI focuses more on the ability to keep thinking & iterating over a base solution as oppossed to just churning out the best solution, which is what I did, I tried to come up with a better approach but couldn't in the given one hour.
+
+HM round - Had in depth discussion on my projects, was asked various situational questions, some of it behavorial some technical in nature, and they were basically related to gauging my thought process in production scenarios. Was asked to come up with some basic design choices as per various situation laid out to me. I felt this round went decent too.
+
+After a few days recruiter informed that debrief outcome was +ve & that they would start the process of offer rollout. Recruiter said due to the current market they won't give any hikes & will barely match my current TC. I didn't argue. The process is underway, BGV is done & it has been sometime since then and I have come to know OCI is under a hiring freeze so am not really keeping much hopes from them now. Meanwhile I have found another team at my current company(was a part of layoffs in January) so am staying here for now.
+
+Update - received written offer letter confirmation today https://leetcode.com/discuss/compensation/3299445/Oracle-OCI-or-IC3-or-India-or-2023
+
+Not too inclined on switching at nearly 0% hike
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Status: SSE & Tech lead, BTech CS from Tier 1
+Position: IC3 at Oracle OCI
+Location: Bangalore, India
+
+Round 1 - HLD/LLD Round [60 min]
+Design a Parking lot but it needs to be similar to Uber etc. As in one can see the available parking spaces in different parking lots to them according to their current location.
+Some features included were -
+a) Early booking can be done.
+b) Geofencing should be enabled to show user the nearest parking lot with all the available spaces in it.
+c) Specific places needs to be allotted for disabled person.
+d) Handling of traffic at peak times. [Load balancers, optimised algoriths was expected]
+e) If traffic is high and disabled parking is available, how will you do that?
+f) How will you verify the correct customer who has booked is entering.
+g) Create everything automated in parking lot.
+h) Which databases should be used? Why?
+
+The LLD was also expected. The interviewer can change the Functional requirements on the go. So try to create solutions with little bit of flexibility to introduce new changes.
+
+Round 2- Hiring Manager
+Talked about his team and what all the products they work on in details. What can I expect to work on after joining. Apart from this detail description of the recent project I did. Whole HLD, Problem statement, Success rates of the api's, how did I improve the efficiency of the system etc.
+Other questions asked -
+
+How you choose database for your projects .[CAP Theorem based database selection was expected].
+ACID property? Explain Isolation and Durability.
+How do you manage projects which is very big and that can't be done in a certain period of time. How will you deal with such issues.
+Languages you have worked on?
+Why changing company?
+Some other behavioural questions were also asked.
+
+Round 3- DSA / Project discussion Round
+
+Explain current project. [Discuss using STAR methodology].
+https://leetcode.com/problems/valid-parentheses/
+https://leetcode.com/problems/longest-valid-parentheses/
+Also discussed some behavioural questions at the end.
+Round 4 - DSA / HLD / Behavioural Round
+
+a) What all microservices is there in your current project.
+b) Describe the full flow of the process.
+c) Some behavioural question on leading team and handling issues.
+d) You have a sequence of string and a map -
+Ex - [A, A2, A3, #ifdef FOO, B, B2,#ifndef BAR, C, #endif, D, #endif, E]
+map - > {FOO = true, BAR = true}
+The sequence of the strings needs to be printed according to the if condition. Whenever a ifdef is found, retrieve the value from the Map and if its true print the value inside it. IF #ifndef is found negate the value obtained from the map and then print accordingly. #endif is closing of the previous if block.
+For example the ans -> A, A2, A3, B, B2, D, E
+(C is not printed because ifndef was false).
+Implemented stack for storing the flag for each if case and got the solution running.
+
+Round 5 - DSA / System Design / Behavioural Round
+
+How do you decide the tech stack of any application you start working on?
+CAP theorem?
+ACID -> Isolation?
+Coding question ->You have two strings logs = "cabedlsbcald" and password = "abc".
+Find the number of substring where the permutation of password is available.
+Here, ans is 2 as "cab"[0 to 2 index] and "bca"[7 to 9 index].
+Solved using Sliding window approach.
+One thing I have observed that OCI expects working solution even if its not the most optimal solution. Write some working solution first (if you have less time ) and then move on to the optimised solution.
+If you dont have working solution, you might be penalised (or maybe not, since my interviewers were quite focused on running solution. Hence that might become the case).
+
+Other experiences -
+Flipkart - https://leetcode.com/discuss/interview-experience/1817457/flipkart-sde2-bangalore-feb-2022-offer/
+Quizizz - https://leetcode.com/discuss/interview-experience/1785584/Quizizz-or-SDE2-or-Bangalore-or-Feb-2022-Offer
+
+Compensation details - https://leetcode.com/discuss/compensation/1895309/Oracle-OCI-or-IC2-or-Bangalore
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+I was interviewed with Oracle OCI Bangalore in Feb-March2020. I'm having 2 years of experience.
+
+Here is my interview experience.
+
+[Phone Screen - 30mins]
+Coding Question - Climbing stairs [easy]
+Work Experiences,Projects
+Experience with cloud technologies
+
+Onsite rounds:
+[Round 1 - 60mins]
+Design a Card Game with some set of rules. Basically was testing for OOPs and design concepts. Multiplayer platform, easily extendable design, add dynamic rules, change card's face values, keep track of leaderboard etc were follow up questions.
+
+[Round 2 - 60mins]
+Started with questions like what is a Cache memory, why do we need this, different type of caches,L1/L2/L3 cache differences. Cache coherency and eviction policies.
+
+Then after a good 15-20 mins discussion, I was given a task to implement(code) LRU cache. Follow ups: Why did I choose this DS, how to make it thread-safe, how to make it a distributed cache etc.
+
+[Round 3 - 60mins]
+https://leetcode.com/problems/target-sum/ [medium]
+https://leetcode.com/problems/recover-binary-search-tree/ [hard]
+
+[Hiring Manager - 45mins]
+Resume related questions.
+Biggest Acheivements and all.
+Roles and responsibility in current team.
+Time when you disagreed with your manager.
+Conflict management cases with teammates.
+Expected CTC.
+
+Scheduled after a week:
+[Bartender - 50mins - Zoom App]
+Roles and responsibility in current team.
+Time when you disagreed with your manager.
+Conflict management cases with teammates.
+I guess he was not well prepared with questions and we still had 40mins left. He gave me a coding question again.
+Q) You have given a file name (string). Write a script/code to find the file(may be anywhere in nested directories) and delete it. If that directory doesn't conatains any other file delete that directory too.
+
+Last question : How a typical daily routine you follow (I said, I usually go for boxing clasess in morning. He started laughing and said alright let's stop here. I don't want to get punched :D)
+
+verdict: Cleared all round, delay in offer dispatch due to COVID-19
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hi all, I was recently interviewed at Oracle OCI for IC3 Position for which I got selected about 2 months ago in Feb 2023, but unfortunately due to hiring freeze my offer letter has never been relesed. So, I gave up on OCI and hence writing my interview experience here.
+
+Technical Screening Round (In-Depth) :-
+
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+Where do you mention env changes in the helm chart
+You have a table, write a query to output day wise total sales
+
+
+**select sum(amount) from sales group by sale_date LIMIT 2**
+ 
+How does migration file looks like inside?
+
+How to modify migration file such that few rows contain one set of default value and few other rows contain another default value
+How does migration dependencies work…ex:- for 006_ini file only 005 dependency will be there or 001, 002, 003, 004 all will be there? (Ans :- only 005 will be there)
+How do you write an endpoint for email service
+How to you do load balancing…which algo?
+Write a cron job syntax 0 * * * *
+what states did you use in react? write syntax for usestate and how to you update the state?
+Difference between props and state
+How do you access DOM element in react
+Write an onClick function
+Write a promise
+Write a axios POST request
+How do you pass props from one component to another
+How to list databases in settings.py file in django and can we declare multiple database instances?
+What is Installed Apps in settings.py
+How do you do Two-Factor authentication
+psql commands for PostgreSQL
+
+List all tables in a database
+Connect to a database
+Have you used celery? how does celery work internally?
+Is axios asynchronous?
+Round 1 :-
+
+Projects Done / Tech Stack / K8s
+Have you worked with Terraform
+Tell me a time where you had to learn a new skill
+What is your daily responsibilities include, how much coding / team managing?
+What is your biggest professional achievement so far
+Mutable vs immutable difference
+When to use list and when to use dictionary and when to use tuples
+How do you measure time taken for a function in python. Imagine you have 100’s of functions
+shallowcopy vs deepcopy in python
+Hackerank coding problem - find finest food outlets
+Round 2 :-
+
+What is the biggest obstacle you have faced?
+What is the biggest professional achievement so far?
+Architecture for QAHub
+What is your daily responsibilities include, how much coding / team managing?
+[System Design] Implement recommendation system for online book store
+Round 3 :-
+
+[First 30 minutes] - Grilled on every part of resume, got to know more about my roles responsibilities and contributions at current company.
+[Last 30 minutes] - Hackerrank puzzle problem
+Round 4 :-
+
+What projects did you do in your current role?
+Difference between var and let
+Difference between Angular and React?
+Is React MVC?
+Code in JS to open a url
+Code in JS to refresh page for every 30 seconds
+Given 4x4 matrix, divide the matrix into 4 equal segments such that each segment is not a square or rectangle and they should not bisect
+Ans :- It is not possible to divide a 4x4 matrix into 4 equal segments such that each segment is not a square or rectangle, as any partition of a 4x4 matrix into 4 equal parts must result in either 4 squares or 2 rectangles. This is due to the fact that a 4x4 matrix has an equal number of rows and columns, and thus, any partition into 4 equal segments must have either the same number of rows and columns in each segment, resulting in squares, or different numbers of rows and columns in each segment, resulting in rectangles.
+data = 1010100
+sort this data
+write unittests
+Difference between shallowcopy and deepcopy
+Which module do you use for unittest
+Store username and password in sessionstorage and get them and clear them after 5 minutes
+data = "I Like Oracle and Oracle Likes You"
+Count frequency of each word in above string
+Since you are UI developer, do you have any personal blogs to show? I said Not completely ui but based on requirement, I act as full stack bla bla bla…..
+Round 5 :-
+
+Your react app is taking time to load, how would you troubleshoot it? What performance techniques do you follow? Lets say you have a webpage, how do you troubleshoot in it
+Ans :- I said I will open the console and check the performance tab and see how much time the static files are taking and I will be using a CDN to get the static files faster.
+Question :- Let’s say if CDN storing above 10 MB is costly, how would you handle it? I said we can use some kind of compression algorithms to reduce the size that is being transferred over network
+Lets say you have a CRM dashboard, where once user call gets connected, next step is fetch metadata like personal info, last 5 transactions, account details etc…. now when the customer agent says pls wait for a minute, your data is loading, its a waste of time for the end user. so how would you handle such scenario?
+
+Asynchronously precompute the data as soon as the user call gets connected and store it in a in-memory cache like Redis.
+Tell me a situation where got a work which you did not like and yet you had to do it?
+If there is only frontend work in the team, would you do it?
+If there is a cool-off period and there is monitoring/support kind of work, will you take it as an opportunity and do it?
+How to do you analyze SQL query which is taking lot of time to execute.
+Design a system where you have to read log files and raise exceptions in it and create a Jira ticket in it.
+
+Ans :- edge case :- If there are same exceptions from multiple users, then should not create multiple tickets, instead we only have to raise 1 Jira ticket corresponding to it.
+Have you used useCallback and useMemo ?
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hi all, I was recently interviewed at Oracle OCI for IC3 Position.
+
+Background
+Status: Having 7 Years Experience in software development
+Position: Senior Engineer in mid-sized Product Based Org.
+Location: Bangalore
+
+Timeline / Details:
+Recruiter reached me through Instahyre and scheduled technical screening round after having basic discussion about current roles and responsibilities.
+
+Technical Screening
+Introduction
+Write Rest API's for Unbounded Queue(Request Body, API, Verbs, Response Body etc.)
+Implement Unbounded Queue : I implemet using synchronized keyword.
+So ask to change to make it working after using Locks & Concurrent interfaces.
+Recruiter Informed that I was shortlisted for Onsite Interviews and Scheduled 5 Interview Rounds in next 5 days.
+
+Loop 1
+Designing of TinyUrl (HLD and LLD both)
+Loop 2
+Couple of Behavioral Questions.
+What happens in background after hitting enter after typing www.google.com in browser.
+How browser suggest google just after typing "g", asked to implement trie.
+Leetcode Easy [https://leetcode.com/problems/two-sum/], Don't know after discussing so much why he chose this Leetcode easy question to ask.
+Loop 3
+Couple of Behavioral Questions.
+Different Aspects of System Design(Load Balancers, Security, API Gateway, Deployment Strategy)
+https://leetcode.com/problems/house-robber-iii/
+BT Round
+Lots of Behavioral Questions.
+HM Round
+Discussed about my past project and roles & responsibilities.
+Lots of Behavioral Questions.
+Technical questions were relatively easy , They focus a lot on Behavioral Questions.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+I recently finished the onsite for OCI and thought about sharing my experience here.
+
+(Phone Screen)
+
+This was 1 hour screening round and it started with some questions about my past experience. Then for the next 40 minutes, I was given a problem to solve. It was a hackerrank problem. I explained the approach and wrote the complete code and the interviewer gave some hints and was able to run the code successfully.
+
+(Loop Rounds: Virtual)
+
+Round 1 :
+It was a coding round. After the initial behavioral questions, I was given a coding question to solve. It was a Hackerrank Question. I solved the question. After that he gave me one more question and asked me the approach, it was related to a Graph question.
+
+Round 2 :
+It was also a DSA round. Gave me a question which I wasn't able to solve at first but was able to crack it after few hints and discussions. After that we discussed a bit of Designing Principles and approaches.
+
+Round 3 :
+This was again a coding round. This also had few LP style questions. Post that I was given a coding question and it was a simple one and I coded it quickly after explaining my thought process and solution. Then the interviewer asked me some follow up questions about the code. Overall, this round went really went.
+
+Round 4:
+This was a bar tender round and it was mostly a behavioral round. The interviewer asked me many questions regarding my past experience. Asked a lot of questions related to Oracle's LP. This round also went really well.
+
+Round 5(HM) :
+This was the round with the hiring manager. It was mainly about my past project experiences and I was really grilled about anything that I said.
+
+The overall experience was really good. I have been given a verbal communication by the HR but it's been almost a month and I haven't recieved the offer yet.
+
+UPDATE: I have received the offer letter now, will be joining them soon.
+
+Compensation Details: https://leetcode.com/discuss/compensation/2655639/OCI-or-IC3-or-Remote
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Phone Screen :
+
+General resume overview.
+Coding Question - Given a string, find all the unrepeated characters in a string.
+Observer Pattern, Basics of machine learning (mentioned in resume)
+[Round 1]
+
+https://leetcode.com/problems/minimum-cost-to-connect-sticks
+https://leetcode.com/problems/subsets/
+[Round 2]
+
+https://leetcode.com/problems/target-sum/
+https://leetcode.com/problems/recover-binary-search-tree/
+[Round 3]
+
+Given an array of n no.s, intially sorted as 1 to n, each no. can exchange itself with a no. to it's right. A no. can only be switched twice. Find the no. of flips occured in the array to reach it's current state.
+[Bartender]
+
+Biggest technical challenge you faced.
+Time when you went out of your assigned responsibility to maintain high standard delivery.
+Time when you disagreed with your peers.
+Roles and responsibility in current team.
+Working accross peer times of different time zones.
+[Hiring Manager]
+
+Questions were similar to ones asked in bartender.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Status: M.Tech from Tier 1 institution in India
+Position: SMTS at Oracle
+Location: Bnagalore, India
+Date: Feb ,2020
+
+I was approached through Linkedin for Job profile in Bangalore location. There were 5 rounds and all of them were in zoom call for about 40-60 mins.
+
+Intro
+Coderpad round.
+
+Marking 0 for entire row i and j if <i,j> is 0. Do it inplace. Was asked to write custom test cases and walk it through the code. I wrote two additional test cases.
+https://leetcode.com/problems/set-matrix-zeroes/
+Implement rate limiting API.
+HLD round:
+Started with current project that I am working on and was aske following questions based on my current project.
+
+Queue based load leveling for a web server, Gateway and load balancers. Extended the discussion with throttling.
+Describe one design consideration that you did wrong/ did not consider and was costly in longer run.
+This round was very interactive and we disussed many scenarios and edge cases and possible ways to prevent or circumvent the scenario.
+DS and Algo Round
+I was asked few questions with varying degree of difficulty ranging from easy to medium LC propblems
+
+Implement Snake and Ladder very similar to https://leetcode.com/problems/snakes-and-ladders/. Proposed a DP based solution for the propblem.
+Evaluate an expression tree. Proposed to Stack based solution to translate the expression into post fix notation and then evaludate it.
+Longest common palindromic substring. https://leetcode.com/problems/longest-palindromic-substring/
+Then I was asked a few LP questions.
+
+Hiring Manager Round
+In this round it was mostly about the project and scope of work in the position they were hiring for. Along with that a details level disussion on my current project. Deep dive discussion on scalability and availability of system and some LP quesions.
+
+Bar raiser round with Director
+
+Design system in scale (million users)
+Discussion on Load balancer , APIM , Gateways , Consistancies models and how each consistency decision would affect the system.
+Slightly difficult behavioural quesion involving negative scenarios.
+Over all entire set of rounds lasted for 3 weeks. HR coordinator was very helpful during the prosess.
+
+I found colud design pattern discussed at MSDN (https://docs.microsoft.com/en-us/azure/architecture/patterns/) and Architecture guide very helpful for design discussion and details analysis.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Current Company: OpenText
+Current CTC: ₹18 LPA
+College: Tier-3 (arguably Tier-4)
+Experience: 3 years, 11 months
+
+My Interview Experience for the SMTS (IC3) Role at Oracle Cloud Infrastructure (OCI)
+
+Screening Round:
+I was given two random coding problems on HackerRank. They were similar to Codeforces A/B level problems and had to be solved with all test cases passing.
+After that, I was asked some basic questions on Distributed Systems.
+Result: Got a callback within 2 days informing me that I was selected for the onsite loop rounds.
+
+Loop Rounds
+Round 1 – Hiring Manager (HLD + Behavioral)
+This round focused deeply on my current project.
+
+I was asked to draw and explain the system architecture.
+
+Follow-up questions were around how I could improve it.
+
+The last 20–25 minutes focused on behavioral questions.
+
+Feedback: The hiring manager was quite friendly. I was able to explain everything clearly and he was satisfied.
+
+Round 2 – SMTS (HLD + LLD on HackerRank)
+Started with 5–7 minutes of microservices-related questions.
+
+Then transitioned into a HackerRank test with 3 design-related questions.
+
+Add to Cart – Given a system design, I had to identify bottlenecks and suggest latency improvements.
+
+BookMyShow Design – I was asked to design the API, schema, and high-level architecture.
+
+LLD Implementation – Given an interface, I had to implement two classes.
+
+Unfortunately, the interviewer didn’t engage much; he didn’t ask any cross-questions and it felt more like a monologue.
+
+Concluded with one behavioral question.
+
+Feedback: The interview felt long and a bit disconnected due to the lack of interaction.
+
+Round 3 – PMTS (DS + HLD + Behavioral)
+Started with the classic Leetcode question: Find the missing number, followed by a variation where multiple numbers could be missing.
+
+Then moved on to HLD: I was asked to design a URL Shortener Service.
+
+Ended with one behavioral question.
+
+Feedback: This was a smooth interview with good interaction and problem-solving discussion.
+
+Round 4 – Bartender Round (Director of Engineering)
+Note: OCI “Bartender Rounds” are conducted by someone from a different team, not related to the one you’re being hired for.
+
+Started with a detailed discussion on my current project and architecture.
+
+Asked many follow-up and behavioral questions.
+
+Then came the problem-solving segment: Josephus Problem.
+
+He was very strict about time and said, “If you can solve it in the next 10 minutes, great. Otherwise, I’ll conclude the interview.”
+
+I solved it in 6 minutes, thanks to my strong grip on recursion.
+
+Feedback: The interviewer was a bit stern, but the round was intense and rewarding.
+
+Round 5 – PMTS (USA-based, Technical + Behavioral)
+Started with my project walkthrough.
+
+Then moved to scenario-based HLD questions.
+
+Asked 3 behavioral questions.
+
+Finally, I was given a custom DFS/BFS problem (not on Leetcode), which had several tricky edge cases.
+
+Feedback: Managed to solve it successfully. The round was well-balanced between technical depth and behavioral aspects.
+
+Final Result
+Got a call the very next day — I was selected!
+
+Final Offer:
+Total Compensation (1st Year): ₹62 LPA
+
+Base: ₹37 LPA
+
+RSUs: $75,000 (vested 40-30-20-10 over 4 years)
+
+A Note to Tier-3/Tier-4 College Students and Job Seekers
+To all the hard-working folks from Tier-3 or Tier-4 colleges — I started my career at ₹2.36 LPA. After 2 years of learning and upskilling, I moved to OpenText with ₹16 LPA. Now, after another 2 years, I’ve landed at OCI with ₹62 LPA.
+
+What changed? Not my background. Just my effort.
+
+If you’re dreaming big, don’t stop. Work smart, stay consistent. Time will change for you. Since I didn’t have seniors to guide me in college, I’m now planning to mentor others — free of cost — who are in the same situation.
+
+It's my way of paying it forward.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+I recently finished the onsite for OCI and thought about sharing my experience here.
+
+(Tech Screen)
+
+This was 1 hour screening round and it started with some questions about my past experience. Then for the next 40 minutes, I was given a problem to solve. It was a leetcode hard problem. I explained the approach and wrote the complete code and the interviewer gave some hints and was able to run the code successfully.
+(Onsite)
+
+There was a 5 hours of onsite scheduled with 2 breaks.
+
+Round 1 :
+It was a coding round. After the initial behavioral questions, I was given a coding question to solve. It was a leetcode medium (tends toward hard imo). I solved the question but took the complete time, there wasn't any time left for Q&A.
+Round 2 :
+It was a system design round. It started with behavioral questions and then I was given an ambigous statement of "Design xyz system". The interviewer was friendly and asked me a lot of counter questions and helped me at many places.
+Round 3 :
+This was again a coding round. This also had few LP style questions. Post that I was given a coding question (leetcode medium) and it was a simple one and I coded it quickly after explaining my thought process and solution. Then the interviewer added another question to it (again a leetcode medium). I explained my approach and coded that. Then the interviewer asked me some follow up questions about the code. Overall, this round went really went.
+Round 4:
+This was a bar tender round and it was mostly a behavioral round. The interviewer asked me many questions regarding my past experience. At the end, i was given a simple problem to solve.
+This round also went really well.
+Round 5 :
+This was the round with the hiring manager. It was mainly about my past project experiences and I was really grilled about anything that I said.
+The overall experience was really good and I would like to give few tips if you're appearing for OCI interview :
+
+Prepare all the Oracle tagged questions on Leetcode (especially medium & hard).
+Go through all the popular system design questions (if you don't have any prior design experience)
+Know your past projects really well. Prepare with all the counter questions.
+OCI really values its principles and prepare multiple stories about each OCI values.
+Comp details : https://leetcode.com/discuss/interview-question/1973342/OCI-or-IC3-or-Remote
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OCI :
+
+Round1 (Problem Solving)
+1. Minimum Add to Make Parentheses Valid. https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
+2. Minimum appends required to make a string palindrome.
+3. Longest sub-array having sum K.
+
+After Round1 got a call from hr saying, you will be having another 5 rounds.
+
+Round2 (Problem Solving + Design)
+1. Generate all the permutations of a String. : https://leetcode.com/problems/permutations/
+2. System Design tiny URL.
+3. How DNS works.
+
+
+Round3 (Bartender)
+1. Discussion about current work.
+2. Questions related to microservice architecture.
+3. Lot of behavioural questions(what are your competencies,biggest achievement,any conflict with team mates/manager etc).
+
+
+Roun4 (Problem Solving)
+1. Internal implementation of HashMap, diff between hashMap and TreeMap, how you can use any custom object as a key.
+2. You have unlimited number of eggs and n floors. Find number of trials needed to find a floor at which egg wont break.
+3. Bulb Switcher : https://leetcode.com/problems/bulb-switcher/
+4. Odd even link list : https://leetcode.com/problems/odd-even-linked-list/
+
+Round5 (Technical)
+1. Discussion about one of my previous project.
+2. Concurrency questions, diff between calling run() and start() ,synchronized keyword,how can you implement threadpool)
+3. How to make your system highly available.
+4. Write a program to print all the palindromes in a given String.
+
+Round6 (Hiring Manager)
+1. Discussion about my current work and responsibilities.
+2. Behavioural questions (biggest technical challange in recent times,why you want to leave current company,Why Oracle etc.)
+3. Details about the team,work and the role.
+
+
+Paytm
+
+Round1 (Problem Solving)
+
+1. Coin change : https://leetcode.com/problems/coin-change/
+2. Prefix Search : Given list of words. Get all the words starting from the given prefix
+3. https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+
+Round2(Design)
+1. Discussion about current work.
+2. Design problem :
+Search API for a ecommerce website
+There is some data lake where they are populating some unstructured data about all the products. Which gets updated at the end of the day.
+Which contains data about city,productId,number of views,number of purchases for that particular day.
+You have to design a API which can show most popular products of last n days for the given search term in the city.
+Like If you search for shoes it should show most popular products in last n days in the current city.
+You can assume you have one catalog service which gives you all the productIds for given search term.
+How search will work? What will be the structure of the API (Request,Response,Method).
+
+
+Round3 (JAVA + SPRING + LLD )
+1. Discussion about the architecture and design of the previous project.
+2. What is dependency injection? How will you implement Spring Dependency Injection? How will you dtetect cyclic dependency?.
+3. Internal implementation of HashSet and HashMap.
+4. LLD of Parking Lot.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
